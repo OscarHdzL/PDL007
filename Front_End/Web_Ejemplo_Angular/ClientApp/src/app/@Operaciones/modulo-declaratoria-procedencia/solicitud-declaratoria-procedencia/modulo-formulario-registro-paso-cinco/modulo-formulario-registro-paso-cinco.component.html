@@ -1,0 +1,346 @@
+<app-modulo-spiner-declaratoria *ngIf="estaCargando"></app-modulo-spiner-declaratoria>
+<div class="container">
+    <form role="form" [formGroup]="formGroup">
+
+        <div class="row">
+            <div class="col-sm-4">
+                <span style="font-weight: bold;font-size: 12px;">Es necesario que adjunte su petición la cual deberá
+                    estar
+                    firmada por el representante o apoderado legal, así como
+                    los documentos o fotografías que sustenten su petición
+                    en formatos: Word, PDF, JPG, PNG y que no excedan 250 M b</span>
+            </div>
+            <div class="col-sm-3">
+                <input style="display: none" type="file" #fileInput (change)="cargarArchivoComponent($event, 31)"
+                    formControlName="peticion">
+
+                <button class="btn btn-default btn-sm btn-margin" type="button" (click)="fileInput.click()"
+                    [disabled]="deshabilitar || esSoloLectura">
+                    <span class="glyphicon glyphicon-file"></span>
+                </button>
+                <button class="btn btn-default btn-sm btn-margin" type="button" (click)="detalleVer(31)"
+                    [disabled]="(!idDocumentoPeticion && !archivoDocumentacionPeticion)">
+                    <span class="glyphicon glyphicon-zoom-in"></span>
+                </button>
+
+                <button class="btn btn-default btn-sm btn-margin" type="button"
+                    (click)="openAdvertenciaInterno(idDocumentoPeticion, 31)"
+                    [disabled]="deshabilitar || esSoloLectura || (!idDocumentoPeticion && !archivoDocumentacionPeticion)">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
+            </div>
+            <div class="col-sm-5"></div>
+        </div>
+
+        <br><br>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <br>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <span style="font-weight: bold;" class="requerido">1er documento:</span>
+                    </div>
+                    <div class="col-sm-3">
+                        <input style="display: none" type="file" #fileInput2
+                            (change)="cargarArchivoComponent($event, 32)" formControlName="primerDocumento">
+
+                        <button class="btn btn-default btn-sm btn-margin" type="button" (click)="fileInput2.click()"
+                            [disabled]="deshabilitar || esSoloLectura">
+                            <span class="glyphicon glyphicon-file"></span>
+                        </button>
+                        <button class="btn btn-default btn-sm btn-margin" type="button" (click)="detalleVer(32)"
+                            [disabled]="(!idDocumentoAnexo1 && !archivoDocumentoAnexo1)">
+                            <span class="glyphicon glyphicon-zoom-in"></span>
+                        </button>
+
+                        <button class="btn btn-default btn-sm btn-margin" type="button"
+                            (click)="openAdvertenciaInterno(idDocumentoAnexo1, 32)"
+                            [disabled]="deshabilitar || esSoloLectura || (!idDocumentoAnexo1 && !archivoDocumentoAnexo1)">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </div>
+                    <div class="col-sm-5"></div>
+                </div>
+
+                <br><br>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <span style="font-weight: bold;" class="requerido">2do documento:</span>
+                    </div>
+                    <div class="col-sm-3">
+                        <input style="display: none" type="file" #fileInput3
+                            (change)="cargarArchivoComponent($event, 33)" formControlName="segundoDocumento">
+
+                        <button class="btn btn-default btn-sm btn-margin" type="button" (click)="fileInput3.click()"
+                            [disabled]="deshabilitar || esSoloLectura">
+                            <span class="glyphicon glyphicon-file"></span>
+                        </button>
+                        <button class="btn btn-default btn-sm btn-margin" type="button" (click)="detalleVer(33)"
+                            [disabled]="(!idDocumentoAnexo2 && !archivoDocumentoAnexo2)">
+                            <span class="glyphicon glyphicon-zoom-in"></span>
+                        </button>
+
+                        <button class="btn btn-default btn-sm btn-margin" type="button"
+                            (click)="openAdvertenciaInterno(idDocumentoAnexo2, 33)"
+                            [disabled]="deshabilitar || esSoloLectura || (!idDocumentoAnexo2 && !archivoDocumentoAnexo2)">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </div>
+                    <div class="col-sm-5"></div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <span style="font-weight: bold;font-size: 16px;">
+                    Manifestación bajo protesta de decir la verdad, <br>
+                    que no existe conflico para el uso, <br>
+                    posesión o propiedad del inmueble de que se trate <br>
+                    y que el mismo no es propiedad de la Nación.
+                </span>
+            </div>
+            <div class="col-sm-1">
+                <input class="form-control" type="checkbox" formControlName="manifestacion" style="width: 25px;" />
+            </div>
+        </div>
+
+    </form>
+
+    <br><br>
+
+    <div class="row" *ngIf="!deshabilitar">
+        <div class="col-sm-12" style="text-align: start;">
+            <button *ngIf="!esSoloLectura" [disabled]="(!idDocumentoPeticion && !archivoDocumentacionPeticion) || (!idDocumentoAnexo1 && !archivoDocumentoAnexo1)
+                 || ( !idDocumentoAnexo2 && !archivoDocumentoAnexo2) || !manifestacion.value || esSoloLectura"
+                type="button" class="btn btn-primary" (click)="guardar()">
+                Guardar
+            </button>
+            &nbsp;&nbsp;
+            <button *ngIf="!esSoloLectura" [disabled]="(!idDocumentoPeticion && !archivoDocumentacionPeticion) || (!idDocumentoAnexo1 && !archivoDocumentoAnexo1)
+            || ( !idDocumentoAnexo2 && !archivoDocumentoAnexo2) || !manifestacion.value || esSoloLectura" type="button"
+                class="btn btn-primary" (click)="finalizar()">
+                Finalizar
+            </button>
+            &nbsp;&nbsp;
+            <button type="button" class="btn btn-secondary" (click)="salir()">
+                Salir
+            </button>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="idPerfil == 11">
+        <div class="col-sm-12" style="text-align: start;">
+            <button type="button" class="btn btn-secondary" (click)="salir()">
+                Salir
+            </button>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="idPerfil == 12">
+        <div class="col-sm-12" style="text-align: start;">
+            <button type="button" class="btn btn-primary" (click)="abrirModal(1)">
+                Observar
+            </button>
+            &nbsp;&nbsp;
+            <button type="button" class="btn btn-primary" (click)="generarOficio()">
+                Generar Oficio
+            </button>
+            &nbsp;&nbsp;
+            <button type="button" class="btn btn-secondary" (click)="salir()">
+                Salir
+            </button>
+        </div>
+
+        <br> &nbsp;
+
+        <div class="col-sm-12" style="text-align: start;" *ngIf="mostrarGeneraOficio">
+            <button [disabled]="!manifestacion.value" type="button" class="btn btn-primary"
+                (click)="guardarD()">
+                Guardar
+            </button>
+            &nbsp;&nbsp;
+            <button type="button" class="btn btn-primary" (click)="abrirModal(3)">
+                Autorizar
+            </button>
+            &nbsp;&nbsp;
+            <button type="button" class="btn btn-primary" (click)="abrirModal(4)">
+                Concluir tramite
+            </button>
+        </div>
+
+    </div>
+
+    <br><br>
+    <ng-template #contentObservar let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Observaciones</h4>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="observarGroup">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label class="requerido">Comentarios</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <textarea class="form-control" formControlName="comentarios" rows="3" appTrim></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-default" (click)="modal.dismiss('cancel click')">
+                Cerrar
+            </button>
+            <button class="btn btn-sm btn-danger" (click)="observar()" [disabled]="!this.observarGroup.valid">
+                Guardar
+            </button>
+        </div>
+    </ng-template>
+
+    <ng-template #contentConcluir let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Concluir Trámite</h4>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="concluirGroup">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="requerido">Selecciona una opción</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <select class="form-control" formControlName="opcion">
+                            <option value="1">Solicitud Concluida</option>
+                            <option value="2">Solicitud Cancelada</option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label class="requerido">Comentarios</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <textarea class="form-control" formControlName="comentarios" rows="3" appTrim></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-default" (click)="modal.dismiss('cancel click')">
+                Cerrar
+            </button>
+            <button class="btn btn-sm btn-danger" (click)="concluir()" [disabled]="!this.concluirGroup.valid">
+                Finalizar
+            </button>
+        </div>
+    </ng-template>
+
+    <ng-template #contentAutorizar let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Autorizar declaratoria</h4>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="autorizarGroup">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Autorizado</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label class="requerido">Oficio</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input style="display: none" type="file" #fileInput4
+                            (change)="cargarArchivoAutorizar($event, 'pdf')" formControlName="oficio"
+                            accept="application/pdf">
+
+                        <button class="btn btn-default btn-sm btn-margin" type="button" (click)="fileInput4.click()">
+                            <span class="glyphicon glyphicon-file"></span>
+                        </button>
+                        <button class="btn btn-default btn-sm btn-margin" type="button" (click)="detalleVer(34)"
+                            [disabled]="(!archivoDocumentacionAutorizar)">
+                            <span class="glyphicon glyphicon-zoom-in"></span>
+                        </button>
+
+                        <button class="btn btn-default btn-sm btn-margin" type="button"
+                            (click)="archivoDocumentacionAutorizar = null" [disabled]="!archivoDocumentacionAutorizar">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </div>
+
+                </div>
+
+                <br>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="requerido">Fecha:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input class="form-control" formControlName="fecha" type="date">
+                    </div>
+                </div>
+
+                <br>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label class="requerido">Horario:</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <select id="horario" name="horario" class="form-control" formControlName="horario" required>
+                            <option value="" selected disabled hidden>Seleccione</option>
+                            <option *ngFor="let opcion of lstHorarios" value="{{opcion.c_horario}}">{{opcion.c_horario}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <br>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label class="requerido">Dirección:</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <textarea class="form-control" formControlName="direccion" rows="3" appTrim></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <div class="col-sm-12">
+                <button type="button" class="btn btn-sm btn-default" (click)="modal.dismiss('cancel click')">
+                    Cerrar
+                </button>
+                <button class="btn btn-sm btn-primary" (click)="autorizar()"
+                    [disabled]="!this.autorizarGroup.valid || !archivoDocumentacionAutorizar">
+                    Enviar Notificación
+                </button>
+            </div>
+
+        </div>
+    </ng-template>
+
+    <ng-template #contentImagen let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Imagen</h4>
+        </div>
+        <div class="modal-body">
+            <img [src]="img" width="100%">
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-default" (click)="modal.dismiss('cancel click')">
+                Cerrar
+            </button>
+        </div>
+    </ng-template>
+
+</div>

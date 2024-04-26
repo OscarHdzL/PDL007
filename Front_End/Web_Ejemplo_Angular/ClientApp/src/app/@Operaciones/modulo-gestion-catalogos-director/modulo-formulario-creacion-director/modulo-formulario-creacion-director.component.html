@@ -1,0 +1,72 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Agregar Componente</h4>
+</div>
+<form role="form" [formGroup]="form">
+  <div class="modal-body col-md-12">
+    <ng-container formArrayName="catalogos">
+      <ng-container *ngFor="let catalogo of catalogos.controls; let i = index">
+        <div [formGroup]="catalogo">
+          <div class="row">
+            <div class="form-group col-md-10">
+              <label class="control-label requerido">Título:</label>
+              <input class="form-control" type="text" formControlName="director_titulo" required />
+              <div class="error" *ngIf=" catalogo.get('director_titulo').errors?.required && catalogo.get('director_titulo').touched">
+                El campo es requerido
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label class="control-label requerido">Nombre(s):</label>
+              <input class="form-control" type="text" formControlName="director_nombre" required />
+              <div class="error" *ngIf="catalogo.get('director_nombre').errors?.required && catalogo.get('director_nombre').touched">
+                El campo es requerido
+              </div>
+            </div>
+            <div class="form-group col-md-3">
+              <label class="control-label requerido">Apellido paterno:</label>
+              <input class="form-control" type="text" formControlName="director_apaterno" required />
+              <div class="error" *ngIf="catalogo.get('director_apaterno').errors?.required && catalogo.get('director_apaterno').touched">
+                El campo es requerido
+              </div>
+            </div>
+            <div class="form-group col-md-3">
+              <label class="control-label">Apellido materno:</label>
+              <input class="form-control" type="text" formControlName="director_amaterno" />
+              <!--<div class="error" *ngIf="catalogo.get('director_amaterno').errors?.required && catalogo.get('director_amaterno').touched">
+                El campo es requerido
+              </div>-->
+            </div>
+            <div class="form-group col-md-10">
+              <label class="control-label requerido">Cargo:</label>
+              <input class="form-control" type="text" formControlName="director_cargo" required />
+              <div class="error" *ngIf=" catalogo.get('director_cargo').errors?.required && catalogo.get('director_cargo').touched">
+                El campo es requerido
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="btn-file">
+                <button class="btn btn-secondary btn-icon" (click)="remover(i)">
+                  <i class="ti-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+    <div class="col-md-12">
+      <button class="btn btn-secondary btn-sm" (click)="agregar()">
+        Agregar
+      </button>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button (click)="OnSubmit()" [disabled]="!this.catalogos.valid || this.catalogos?.length === 0"
+      class="btn btn-primary">
+      Aceptar
+    </button>
+    <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">
+      Cancelar
+    </button>
+  </div>
+</form>

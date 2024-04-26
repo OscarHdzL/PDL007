@@ -1,0 +1,633 @@
+<div class="container">
+    <div class="row">
+        <div class="row">
+            <form role="form" [formGroup]="formGroupBase">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <span style="font-weight: bold;font-size: 20px;">Especificaciones del inmueble</span>
+                    </div>
+                </div>
+
+                <br>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>
+                            <span style="display: inline-block;width: 25px;margin-bottom: -12px;margin-right: 12px;">
+                                <input class="form-control" type="radio" [value]="1" [(ngModel)]="esRegular"
+                                    name="esRegular" [ngModelOptions]="{standalone: true}"
+                                    [disabled]="deshabilitar || esSoloLectura" />
+                            </span>
+                            <span>Figura regular</span>
+                        </label>
+                        &nbsp;&nbsp;&nbsp;
+
+                        <label>
+                            <span style="display: inline-block;width: 25px;margin-bottom: -12px;margin-right: 12px;">
+                                <input class="form-control" type="radio" [value]="2" [(ngModel)]="esRegular"
+                                    name="esRegular" [ngModelOptions]="{standalone: true}"
+                                    [disabled]="deshabilitar || esSoloLectura" />
+                            </span>
+                            <span>Figura Irregular</span>
+                        </label>
+                    </div>
+                </div>
+
+                <br>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <span style="font-weight: bold;font-size: 20px;" class="requerido">Unidad:</span>
+                        &nbsp;&nbsp;&nbsp;
+                        <label>
+                            <span style="display: inline-block;width: 25px;margin-bottom: -12px;margin-right: 12px;">
+                                <input class="form-control" type="radio" [(ngModel)]="unidad" [value]="1" name="unidad"
+                                    [ngModelOptions]="{standalone: true}" [disabled]="deshabilitar || esSoloLectura" for="unidad"/>
+                            </span>
+                            <span>Metros(m)</span>
+                        </label>
+                        &nbsp;&nbsp;&nbsp;
+                        <label>
+                            <span style="display: inline-block;width: 25px;margin-bottom: -12px;margin-right: 12px;">
+                                <input class="form-control" type="radio" [(ngModel)]="unidad" [value]="2" name="unidad"
+                                    [ngModelOptions]="{standalone: true}" [disabled]="deshabilitar || esSoloLectura" for="unidad"/>
+                            </span>
+                            <span>Hectárea(Ha)</span>
+                        </label>
+                    </div>
+
+                    <div class="col-md-2" style="margin-top: 10px">
+                        <label class="control-label requerido" for="superficie">Superficie:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input formControlName="superficie" class="form-control" type="text" appTrim maxlength="20">
+                        <div *ngFor="let error of mensajesValidacion.superficie">
+                            <ng-container
+                                *ngIf="superficie!.hasError(error.type) && (superficie!.dirty || superficie!.touched)">
+                                <small class="errorValidation">{{error.message}}</small>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <br>
+    </div>
+
+    <div class="row" *ngIf="esRegular == 1">
+        <form role="form" [formGroup]="formGroupRegular">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <div class="row">
+                        <div class="col-sm-5" style="text-align: end;">
+                            <label class="control-label alineacion" for="superficie">Norte:</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input formControlName="norte" class="form-control" type="text" appTrim decimales>
+                            <div *ngFor="let error of mensajesValidacion.norte">
+                                <ng-container *ngIf="norte!.hasError(error.type) && (norte!.dirty || norte!.touched)">
+                                    <small class="errorValidation">{{error.message}}</small>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <span style="display: inline-block;width: 25px;margin-bottom: -12px;margin-right: 12px;">
+                                <input class="form-control" type="checkbox" formControlName="norteCh"
+                                    (change)="checkValue(1, $event)" />
+                            </span>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-5" style="text-align: end;">
+                            <label class="control-label alineacion" for="superficie">Sur:</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input formControlName="sur" class="form-control" type="text" appTrim decimales>
+                            <div *ngFor="let error of mensajesValidacion.sur">
+                                <ng-container *ngIf="sur!.hasError(error.type) && (sur!.dirty || sur!.touched)">
+                                    <small class="errorValidation">{{error.message}}</small>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <span style="display: inline-block;width: 25px;margin-bottom: -12px;margin-right: 12px;">
+                                <input class="form-control" type="checkbox" formControlName="surCh"
+                                    (change)="checkValue(2, $event)" />
+                            </span>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-5" style="text-align: end;">
+                            <label class="control-label alineacion" for="superficie">Este / Oriente:</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input formControlName="esteOriente" class="form-control" type="text" appTrim decimales>
+                            <div *ngFor="let error of mensajesValidacion.esteOriente">
+                                <ng-container
+                                    *ngIf="esteOriente!.hasError(error.type) && (esteOriente!.dirty || esteOriente!.touched)">
+                                    <small class="errorValidation">{{error.message}}</small>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <span style="display: inline-block;width: 25px;margin-bottom: -12px;margin-right: 12px;">
+                                <input class="form-control" type="checkbox" formControlName="esteOrienteCh"
+                                    (change)="checkValue(3,$event)" />
+                            </span>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-5" style="text-align: end;">
+                            <label class="control-label alineacion" for="superficie">Oeste / Poniente:</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input formControlName="oestePoniente" class="form-control" type="text" appTrim decimales>
+                            <div *ngFor="let error of mensajesValidacion.oestePoniente">
+                                <ng-container
+                                    *ngIf="oestePoniente!.hasError(error.type) && (oestePoniente!.dirty || oestePoniente!.touched)">
+                                    <small class="errorValidation">{{error.message}}</small>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <span style="display: inline-block;width: 25px;margin-bottom: -12px;margin-right: 12px;">
+                                <input class="form-control" type="checkbox" formControlName="oestePonienteCh"
+                                    (change)="checkValue(4, $event)" />
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+
+                    <div class="row">
+                        <div class="col-sm-4" style="text-align: end;">
+                            <span style="display: inline-block;width: 25px;margin-bottom: -12px;margin-right: 12px;">
+                                <input class="form-control" type="checkbox" formControlName="norEsteCh"
+                                    (change)="checkValue(5, $event)" />
+                            </span>
+                        </div>
+                        <div class="col-sm-3" style="text-align: end;">
+                            <label class="control-label alineacion" for="superficie">Noreste:</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input class="form-control" type="text" formControlName="norEste" appTrim decimales/>
+                            <div *ngFor="let error of mensajesValidacion.norEste">
+                                <ng-container
+                                    *ngIf="norEste!.hasError(error.type) && (norEste!.dirty || norEste!.touched)">
+                                    <small class="errorValidation">{{error.message}}</small>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-4" style="text-align: end;">
+                            <span style="display: inline-block;width: 25px;margin-bottom: -12px;margin-right: 12px;">
+                                <input class="form-control" type="checkbox" formControlName="noroEsteCh"
+                                    (change)="checkValue(6, $event)" />
+                            </span>
+                        </div>
+                        <div class="col-sm-3" style="text-align: end;">
+                            <label class="control-label alineacion" for="superficie">Noroeste:</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input class="form-control" type="text" formControlName="noroEste" appTrim decimales/>
+                            <div *ngFor="let error of mensajesValidacion.noroEste">
+                                <ng-container
+                                    *ngIf="noroEste!.hasError(error.type) && (noroEste!.dirty || noroEste!.touched)">
+                                    <small class="errorValidation">{{error.message}}</small>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-4" style="text-align: end;">
+                            <span style="display: inline-block;width: 25px;margin-bottom: -12px;margin-right: 12px;">
+                                <input class="form-control" type="checkbox" formControlName="suresteCh"
+                                    (change)="checkValue(7, $event)" />
+                            </span>
+                        </div>
+                        <div class="col-sm-3" style="text-align: end;">
+                            <label class="control-label alineacion" for="superficie">Sureste:</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input class="form-control" type="text" formControlName="sureste" appTrim decimales/>
+                            <div *ngFor="let error of mensajesValidacion.sureste">
+                                <ng-container
+                                    *ngIf="sureste!.hasError(error.type) && (sureste!.dirty || sureste!.touched)">
+                                    <small class="errorValidation">{{error.message}}</small>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-4" style="text-align: end;">
+                            <span style="display: inline-block;width: 25px;margin-bottom: -12px;margin-right: 12px;">
+                                <input class="form-control" type="checkbox" formControlName="suroEsteCh"
+                                    (change)="checkValue(8, $event)" />
+                            </span>
+                        </div>
+                        <div class="col-sm-3" style="text-align: end;">
+                            <label class="control-label alineacion" for="superficie">Suroeste:</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input class="form-control" type="text" formControlName="suroEste" appTrim decimales/>
+                            <div *ngFor="let error of mensajesValidacion.suroEste">
+                                <ng-container
+                                    *ngIf="suroEste!.hasError(error.type) && (suroEste!.dirty || suroEste !.touched)">
+                                    <small class="errorValidation">{{error.message}}</small>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- geolicalizacion -->
+            <br>
+            <div class="row">
+                <div class="col-sm-12">
+                    <span style="font-weight: bold;font-size: 20px;" class="requerido">Geolocalización:</span>
+                    <br>
+                    <span style="color: rgb(116, 116, 116);font-size: 14px;">Escriba la URL de la página donde se
+                        encuentra geolocalizado el inmueble, y cargue una imagen con el mapa de ubicación:</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <input formControlName="urlMapa" class="form-control" type="text" appTrim>
+                    <div *ngFor="let error of mensajesValidacion.urlMapa">
+                        <ng-container *ngIf="urlMapa!.hasError(error.type) && (urlMapa!.dirty || urlMapa!.touched)">
+                            <small class="errorValidation">{{error.message}}</small>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <input style="display: none" type="file" #fileInput (change)="cargarArchivoComponent($event, 1)"
+                        formControlName="imagenMapa" accept="image/png, image/gif, image/jpeg">
+
+                    <button class="btn btn-default btn-sm btn-margin" type="button" (click)="fileInput.click()"
+                        [disabled]="deshabilitar || esSoloLectura">
+                        <span class="glyphicon glyphicon-file"></span>
+                    </button>
+                    <button class="btn btn-default btn-sm btn-margin" type="button" (click)="detalleVer(1)"
+                        [disabled]="(!idDocumento && !archivoRegular)">
+                        <span class="glyphicon glyphicon-zoom-in"></span>
+                    </button>
+
+                    <button class="btn btn-default btn-sm btn-margin" type="button"
+                        (click)="openAdvertenciaInterno(idDocumento, 30, 1)"
+                        [disabled]="deshabilitar || esSoloLectura || (!idDocumento && !archivoRegular)">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                    <div *ngFor="let error of mensajesValidacion.imagenMapa">
+                        <ng-container
+                            *ngIf="imagenMapa!.hasError(error.type) && (imagenMapa!.dirty || imagenMapa!.touched)">
+                            <small class="errorValidation">{{error.message}}</small>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <span style="font-weight: bold;font-size: 20px;" class="requerido">
+                                El inmueble se encuentra actualmente destinado al culto público:
+                            </span>
+                        </div>
+                        <div class="col-sm-3">
+                            <div>
+                                <label>
+                                    <span
+                                        style="display: inline-block;width: 25px;margin-bottom: -12px;margin-right: 12px;">
+                                        <input class="form-control" type="radio" [(ngModel)]="destinadoAlPublico"
+                                            (change)="cambiarCultoPublico(1, true)" [value]="true"
+                                            [ngModelOptions]="{standalone: true}"
+                                            [disabled]="deshabilitar || esSoloLectura" />
+                                    </span>
+                                    <span>Sí</span>
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    <span
+                                        style="display: inline-block;width: 25px;margin-bottom: -12px;margin-right: 12px;">
+                                        <input class="form-control" type="radio" [(ngModel)]="destinadoAlPublico"
+                                            (change)="cambiarCultoPublico(1, false)" [value]="false"
+                                            [ngModelOptions]="{standalone: true}"
+                                            [disabled]="deshabilitar || esSoloLectura" />
+                                    </span>
+                                    <span>No</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <span style="font-weight: bold;font-size: 20px;">
+                                Seleccione la fecha de Inicio de actividades
+                            </span>
+                        </div>
+                        <div class="col-sm-5">
+                            <input class="form-control form-date" type="date" formControlName="fechaInicioActividades"
+                                (click)="imprimir(fechaInicioActividades)" />
+                            <div *ngFor="let error of mensajesValidacion.fechaInicioActividades">
+                                <ng-container
+                                    *ngIf="fechaInicioActividades!.hasError(error.type) && (fechaInicioActividades!.dirty || fechaInicioActividades!.touched)">
+                                    <small class="errorValidation">{{error.message}}</small>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label class="control-label requerido" for="usoPretendeDestinar">Uso para el que se
+                        pretende destinar:</label>
+                    <select class="form-control" formControlName="usoPretendeDestinar" name="usoPretendeDestinar"
+                        (change)="verificarOtro($event)">
+                        <option value="" selected>Seleccione una opci&oacute;n...</option>
+                        <option *ngFor="let tipo of listaUso" value="{{ tipo.i_id }}">
+                            {{ tipo.c_nombre }}
+                        </option>
+                    </select>
+                    <div *ngFor="let error of mensajesValidacion.usoPretendeDestinar">
+                        <ng-container
+                            *ngIf="usoPretendeDestinar!.hasError(error.type) && (usoPretendeDestinar!.dirty || usoPretendeDestinar!.touched)">
+                            <small class="errorValidation">{{error.message}}</small>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="form-group col-md-6" *ngIf="this.usoPretendeDestinar.value == 11">
+                    <textarea class="form-control" formControlName="otro" name="otro" rows="3"
+                        placeholder="Otro (especifique)" appTrim></textarea>
+                    <div *ngFor="let error of mensajesValidacion.otro">
+                        <ng-container *ngIf="otro!.hasError(error.type) && (otro!.dirty || otro!.touched)">
+                            <small class="errorValidation">{{error.message}}</small>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <br><br>
+        <div class="row" *ngIf="!deshabilitar">
+            <div class="col-sm-12" style="text-align: start;">
+                <button *ngIf="!esSoloLectura"
+                    [disabled]="!this.formGroupRegular.valid || !this.formGroupBase.valid || (!idDocumento && !archivoRegular)"
+                    type="button" class="btn btn-primary" (click)="guardar()">
+                    Guardar
+                </button>
+                &nbsp;&nbsp;
+                <button type="button" class="btn btn-secondary" (click)="salir()">
+                    Salir
+                </button>
+            </div>
+        </div>
+        <div class="row" *ngIf="idPerfil == 11">
+            <div class="col-sm-12" style="text-align: start;">
+                <button type="button" class="btn btn-secondary" (click)="salir()">
+                    Salir
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="esRegular == 2">
+        <form role="form" [formGroup]="formGroupIRegular">
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="control-label requerido" for="colindancia">Colindancia:</label>
+                    <textarea class="form-control" formControlName="colindancia" name="colindancia" rows="4"
+                        appTrim></textarea>
+                    <div *ngFor="let error of mensajesValidacion.colindancia">
+                        <ng-container
+                            *ngIf="colindancia!.hasError(error.type) && (colindancia!.dirty || colindancia!.touched)">
+                            <small class="errorValidation">{{error.message}}</small>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="control-label requerido" for="descripcionSalida">Describa su salida a la vía
+                        pública:</label>
+                    <textarea class="form-control" formControlName="descripcionSalida" name="descripcionSalida" rows="2"
+                        appTrim></textarea>
+                    <div *ngFor="let error of mensajesValidacion.descripcionSalida">
+                        <ng-container
+                            *ngIf="descripcionSalida!.hasError(error.type) && (descripcionSalida!.dirty || descripcionSalida!.touched)">
+                            <small class="errorValidation">{{error.message}}</small>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+
+            <!-- geolicalizacion -->
+            <br>
+            <div class="row">
+                <div class="col-sm-12">
+                    <span style="font-weight: bold;font-size: 20px;" class="requerido">Geolocalización:</span>
+                    <br>
+                    <span style="color: rgb(116, 116, 116);font-size: 14px;">Escriba la URL de la página donde se
+                        encuentra geolocalizado el inmueble, y cargue una imagen con el mapa de ubicación:</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <input formControlName="urlMapa" class="form-control" type="text" appTrim>
+                    <div *ngFor="let error of mensajesValidacion.urlMapa">
+                        <ng-container *ngIf="urlMapa!.hasError(error.type) && (urlMapa!.dirty || urlMapa!.touched)">
+                            <small class="errorValidation">{{error.message}}</small>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <input style="display: none" type="file" #fileInput2 (change)="cargarArchivoComponent($event, 2)"
+                        formControlName="imagenMapa" accept="image/png, image/gif, image/jpeg">
+
+                    <button class="btn btn-default btn-sm btn-margin" type="button" (click)="fileInput2.click()"
+                        [disabled]="deshabilitar || esSoloLectura">
+                        <span class="glyphicon glyphicon-file"></span>
+                    </button>
+                    <button class="btn btn-default btn-sm btn-margin" type="button" (click)="detalleVer(2)"
+                        [disabled]="(!idDocumento && !archivoIregural)">
+                        <span class="glyphicon glyphicon-zoom-in"></span>
+                    </button>
+
+                    <button class="btn btn-default btn-sm btn-margin" type="button"
+                        (click)="openAdvertenciaInterno(idDocumento, 30, 2)"
+                        [disabled]="deshabilitar || esSoloLectura || (!idDocumento && !archivoIregural)">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                    <div *ngFor="let error of mensajesValidacion.imagenMapaI">
+                        <ng-container
+                            *ngIf="imagenMapaI!.hasError(error.type) && (imagenMapaI!.dirty || imagenMapaI!.touched)">
+                            <small class="errorValidation">{{error.message}}</small>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <span style="font-weight: bold;font-size: 20px;" class="requerido">
+                                El inmueble se encuentra actualmente destinado al culto público:
+                            </span>
+                        </div>
+                        <div class="col-sm-3">
+                            <div>
+                                <label>
+                                    <span
+                                        style="display: inline-block;width: 25px;margin-bottom: -12px;margin-right: 12px;">
+                                        <input class="form-control" type="radio" [(ngModel)]="destinadoAlPublicoI"
+                                            [value]="true" [ngModelOptions]="{standalone: true}"
+                                            (change)="cambiarCultoPublico(2, true)"
+                                            [disabled]="deshabilitar || esSoloLectura" />
+                                    </span>
+                                    <span>Sí</span>
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    <span
+                                        style="display: inline-block;width: 25px;margin-bottom: -12px;margin-right: 12px;">
+                                        <input class="form-control" type="radio" [(ngModel)]="destinadoAlPublicoI"
+                                            [value]="false" [ngModelOptions]="{standalone: true}"
+                                            (change)="cambiarCultoPublico(2, false)"
+                                            [disabled]="deshabilitar || esSoloLectura" />
+                                    </span>
+                                    <span>No</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <span style="font-weight: bold;font-size: 20px;" class="requerido">
+                                Seleccione la fecha de Inicio de actividades
+                            </span>
+                        </div>
+                        <div class="col-sm-5">
+                            <input class="form-control form-date" type="date"
+                                formControlName="fechaInicioActividadesI" />
+                            <div *ngFor="let error of mensajesValidacion.fechaInicioActividadesI">
+                                <ng-container
+                                    *ngIf="fechaInicioActividadesI!.hasError(error.type) && (fechaInicioActividadesI!.dirty || fechaInicioActividadesI!.touched)">
+                                    <small class="errorValidation">{{error.message}}</small>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label class="control-label requerido" for="usoPretendeDestinar">Uso para el que se
+                        pretende destinar:</label>
+                    <select class="form-control" formControlName="usoPretendeDestinarI" name="usoPretendeDestinarI"
+                        (change)="verificarOtroI($event)">
+                        <option value="" selected>Seleccione una opci&oacute;n...</option>
+                        <option *ngFor="let tipo of listaUso" value="{{ tipo.i_id }}">
+                            {{ tipo.c_nombre }}
+                        </option>
+                    </select>
+                    <div *ngFor="let error of mensajesValidacion.usoPretendeDestinarI">
+                        <ng-container
+                            *ngIf="usoPretendeDestinarI!.hasError(error.type) && (usoPretendeDestinarI!.dirty || usoPretendeDestinarI!.touched)">
+                            <small class="errorValidation">{{error.message}}</small>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="form-group col-md-6" *ngIf="this.usoPretendeDestinarI.value == 11">
+                    <textarea class="form-control" formControlName="otroI" name="otroI" rows="3" appTrim></textarea>
+                    <div *ngFor="let error of mensajesValidacion.otroI">
+                        <ng-container *ngIf="otroI!.hasError(error.type) && (otroI!.dirty || otroI!.touched)">
+                            <small class="errorValidation">{{error.message}}</small>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <br><br>
+
+        <div class="row" *ngIf="!deshabilitar">
+            <div class="col-sm-12" style="text-align: start;">
+                <button *ngIf="!esSoloLectura"
+                    [disabled]="!this.formGroupIRegular.valid || !this.formGroupBase.valid || (!idDocumento && !archivoIregural)"
+                    type="button" class="btn btn-primary" (click)="guardar()">
+                    Guardar
+                </button>
+                &nbsp;&nbsp;
+                <button type="button" class="btn btn-secondary" (click)="salir()">
+                    Salir
+                </button>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="idPerfil == 11">
+            <div class="col-sm-12" style="text-align: start;">
+                <button type="button" class="btn btn-secondary" (click)="salir()">
+                    Salir
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <ng-template #contentAutorizar let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Imagen</h4>
+        </div>
+        <div class="modal-body">
+            <img [src]="img" width="100%">
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-default" (click)="modal.dismiss('cancel click')">
+                Cerrar
+            </button>
+        </div>
+    </ng-template>
+
+
+    <ng-template #contentAudvertencia let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Error</h4>
+        </div>
+        <div class="modal-body">
+            <h6>Por lo menos se deben tener 3 puntos cardinales seleccionados.</h6>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-default" (click)="modal.dismiss('cancel click')">
+                Cerrar
+            </button>
+        </div>
+    </ng-template>
+    <br><br>
+</div>

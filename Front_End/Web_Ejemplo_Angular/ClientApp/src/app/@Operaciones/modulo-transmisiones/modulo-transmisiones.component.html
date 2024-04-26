@@ -1,0 +1,38 @@
+<app-modulo-spiner-login *ngIf="operacionRespuesta.EstaEjecutando"></app-modulo-spiner-login>
+
+<div class="container">
+  <div class="col-md-12 breadcrumb">
+    <p>Trámites > <strong>Transmisiones</strong></p>
+  </div>
+  <h3>Autorización para la transmisión o difusión de actos de culto religioso extraordinario a través de medios masivos de comunicación no impresos</h3>
+  <div class="row">
+    <div class="col-md-12">
+      <ul>
+        <li>
+          Quejas y sugerencias de servicios.
+          <p>
+            En el espacio de Contacto Ciudadano esta disponible un buz&oacute;n
+            y papeletas para expresar con toda libertad su inconformidad o
+            comentario. V&iacute;a telef&oacute;nica: 01 (55) 5128-0000 ext.
+            36901. V&iacute;a internet al correo electrónico: <a href="mailto:dgar@segob.gob.mx">dgar@segob.gob.mx</a>.
+          </p>
+        </li>
+        <li><a (click)="downloadPdf(5)">Descargue e imprima esta informaci&oacute;n</a></li>
+        <li>
+          Descargue el <a (click)="downloadPdf(6)">escrito libre</a> escrito libre ejemplo para realizar
+          su solicitud.
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-6 link">
+      <a [routerLink]="['/solicitud-transmision']">
+        Solicitud de transmisión
+      </a>
+    </div>
+    <div class="col-md-6 link" >
+      <a [routerLink]="['/registros-transmision']">
+        Consultar transmisión
+      </a>
+    </div>
+  </div>
+</div>

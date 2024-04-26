@@ -1,0 +1,39 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Edición Componente</h4>
+</div>
+<form role="form" [formGroup]="formGroup" (submit)="OnSubmit()">
+  <div class="modal-body">
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label class="control-label">Nombre:</label>
+        <input class="form-control" type="text" formControlName="c_nombre_n" required />
+        <div *ngIf="formGroup.invalid">
+          {{ obtenerErroresNombre() }}
+        </div>
+      </div>
+      <div class="form-group col-md-10">
+        <label class="control-label requerido" for="tipo_escrito">Tipo de Solicitud Escrito:</label>
+        <select class="form-control" 
+                formControlName="tipo_escrito" 
+                name="tipo_escrito" 
+                required>
+          <option value="" selected>Seleccione una opci&oacute;n...</option>
+          <option *ngFor="let tipo of listaSolicitudEscrito" value="{{ tipo.c_id }}">
+            {{ tipo.c_nombre_n }}
+          </option>
+        </select>
+        <div *ngIf="formGroup.invalid">
+          {{ obtenerErroresTipo() }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button (click)="OnSubmit()" [disabled]="!this.formGroup.valid" class="btn btn-primary">
+      Aceptar
+    </button>
+    <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">
+      Cancelar
+    </button>
+  </div>
+</form>

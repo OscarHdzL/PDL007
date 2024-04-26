@@ -1,0 +1,51 @@
+<app-modulo-spiner-declaratoria *ngIf="estaCargando"></app-modulo-spiner-declaratoria>
+
+<div class="row container">
+    <div class="col-sm-12">
+        <h3>Solicitud de Declaratoria de Procedencia</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-7" style="margin-top: 25px">
+        <div *ngIf="pasoSeleccionado == 1">
+            <h4>Datos Generales</h4>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="pagination text-right">
+            <a *ngFor="let route of routes" class="{{route.activo?'active':''}}" (click)="cambiarComponente(route, false)">
+                {{route.nombre}}
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-12" *ngIf="pasoSeleccionado == 1">
+        <hr class="red">
+    </div>
+
+</div>
+
+
+<app-modulo-formulario-registro-paso-uno *ngIf="pasoSeleccionado == 1"></app-modulo-formulario-registro-paso-uno>
+<app-modulo-formulario-registro-paso-dos *ngIf="pasoSeleccionado == 2"></app-modulo-formulario-registro-paso-dos>
+<app-modulo-formulario-registro-paso-tres *ngIf="pasoSeleccionado == 3"></app-modulo-formulario-registro-paso-tres>
+<app-modulo-formulario-registro-paso-cuatro *ngIf="pasoSeleccionado == 4"></app-modulo-formulario-registro-paso-cuatro>
+<app-modulo-formulario-registro-paso-cinco *ngIf="pasoSeleccionado == 5"></app-modulo-formulario-registro-paso-cinco>
+
+
+<ng-template #contentEliminar let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Mensaje</h4>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <p>Error! Antes de continuar complete el {{mensajePasoPendiente}} paso</p>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer" style="text-align: center;">
+      <button type="button" class="btn btn-sm btn-default" (click)="modal.dismiss('cancel click')">Aceptar</button>
+    </div>
+  </ng-template>

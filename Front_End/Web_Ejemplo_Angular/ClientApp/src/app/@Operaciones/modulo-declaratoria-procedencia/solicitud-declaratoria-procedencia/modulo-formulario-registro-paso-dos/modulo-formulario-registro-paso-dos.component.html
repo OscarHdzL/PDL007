@@ -1,0 +1,209 @@
+<div class="container">
+    <form role="form" [formGroup]="formGroup">
+        <div class="row">
+            <label class="col-md-6 control-label" (click)="imprimir(personaNotificaciones)">
+                Domicilio para Notificaciones
+            </label>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="control-label requerido" for="d_cpostal">C.P.:</label>
+                <input #terminoCodigo (blur)="onEntrySelected(terminoCodigo.value)" formControlName="d_cpostal"
+                    class="form-control" appTrim>
+                <div *ngFor="let error of mensajesValidacion.d_cpostal">
+                    <ng-container *ngIf="d_cpostal!.hasError(error.type) && (d_cpostal!.dirty || d_cpostal!.touched)">
+                        <small class="errorValidation">{{error.message}}</small>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label class="control-label requerido" for="d_endidad">Estado:</label>
+                <input class="form-control" formControlName="d_endidad" name="d_endidad" readonly />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="control-label requerido" for="d_ciudad">Ciudad:</label>
+                <input class="form-control" type="text" formControlName="d_ciudad" name="d_ciudad" readonly />
+            </div>
+
+            <div class="form-group col-md-6">
+                <label class="control-label requerido" for="d_colonia">Colonia:</label>
+                <select class="form-control" formControlName="d_colonia" name="d_colonia" required>
+                    <option value="" selected>Seleccione una opci&oacute;n...</option>
+                    <option *ngFor="let tipo of listaColonia" value="{{ tipo.c_id }}">
+                        {{ tipo.c_nombre_n }}
+                    </option>
+                </select>
+                <div *ngFor="let error of mensajesValidacion.d_colonia">
+                    <ng-container *ngIf="d_colonia!.hasError(error.type) && (d_colonia!.dirty || d_colonia!.touched)">
+                        <small class="errorValidation">{{error.message}}</small>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="control-label requerido" for="d_calle">Calle:</label>
+                <input class="form-control" type="text" formControlName="d_calle" name="d_calle" appTrim maxlength="50"/>
+                <div *ngFor="let error of mensajesValidacion.d_calle">
+                    <ng-container *ngIf="d_calle!.hasError(error.type) && (d_calle!.dirty || d_calle!.touched)">
+                        <small class="errorValidation">{{error.message}}</small>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="control-label" for="d_numeroe">Num. Ext.:</label>
+                <input class="form-control" type="text" formControlName="d_numeroe" name="d_numeroe" appTrim maxlength="10"/>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="control-label" for="d_numeroi">Num. Int.:</label>
+                <input class="form-control" type="text" formControlName="d_numeroi" name="d_numeroi" appTrim maxlength="10"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label class="control-label" for="lote">Lote:</label>
+                <input class="form-control" type="text" formControlName="lote" name="lote" appTrim maxlength="20"/>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="control-label" for="manzana">Manzana:</label>
+                <input class="form-control" type="text" formControlName="manzana" name="manzana" appTrim maxlength="20"/>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="control-label" for="superManzana">Súper Manzana:</label>
+                <input class="form-control" type="text" formControlName="superManzana" name="superManzana" appTrim maxlength="20"/>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="control-label" for="delegacion">Delegación:</label>
+                <input class="form-control" type="text" formControlName="delegacion" name="delegacion" appTrim maxlength="20"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label class="control-label" for="sector">Sector:</label>
+                <input class="form-control" type="text" formControlName="sector" name="sector" appTrim maxlength="20"/>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="control-label" for="zona">Zona:</label>
+                <input class="form-control" type="text" formControlName="zona" name="zona" appTrim maxlength="20"/>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="control-label" for="region">Región:</label>
+                <input class="form-control" type="text" formControlName="region" name="region" appTrim maxlength="20"/>
+            </div>
+        </div>
+
+    </form>
+
+    <br>
+
+    <div *ngFor="let control of personaNotificaciones.controls; index as i">
+        <div *ngIf="i != 0">
+            <br><br>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-10">
+                <form role="form" [formGroup]="control">
+                    <div class="row">
+                        <div class="col-md-6" style="text-align: end;">
+                            <span style="font-weight: bold;font-size: 14;" class="requerido">
+                                Nombre completo de la persona autorizada para
+                                oír y recibir notificaciones:
+                            </span>
+                        </div>
+
+                        <div class="col-md-6" (click)="imprimir(personaNotificaciones)">
+                            <input class="form-control" type="text" formControlName="nombrePersonaAutorizada"
+                                name="nombrePersonaAutorizada" appTrim maxlength="150"/>
+                            <div *ngFor="let error of mensajesValidacion.nombrePersonaAutorizada">
+                                <ng-container
+                                    *ngIf="control.controls.nombrePersonaAutorizada!.hasError(error.type) && (control.controls.nombrePersonaAutorizada!.dirty || control.controls.nombrePersonaAutorizada!.touched)">
+                                    <small class="errorValidation">{{error.message}}</small>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6" style="text-align: end;">
+                            <span style="font-weight: bold;font-size: 14;" class="requerido">
+                                Correo electrónico:
+                            </span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <input class="form-control" type="email" formControlName="correoElectronico"
+                                name="correoElectronico" appTrim maxlength="70"/>
+                            <div *ngFor="let error of mensajesValidacion.correoElectronico">
+                                <ng-container
+                                    *ngIf="control.controls.correoElectronico!.hasError(error.type) && (control.controls.correoElectronico!.dirty || control.controls.correoElectronico!.touched)">
+                                    <small class="errorValidation">{{error.message}}</small>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6" style="text-align: end;">
+                            <span style="font-weight: bold;font-size: 14;" class="requerido">
+                                Número telefónico:
+                            </span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" formControlName="numeroTelefonico"
+                                name="numeroTelefonico" numbersOnly maxlength="10" appTrim />
+                            <div *ngFor="let error of mensajesValidacion.numeroTelefonico">
+                                <ng-container
+                                    *ngIf="control.controls.numeroTelefonico!.hasError(error.type) && (control.controls.numeroTelefonico!.dirty || control.controls.numeroTelefonico!.touched)">
+                                    <small class="errorValidation">{{error.message}}</small>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-2" *ngIf="i == 0">
+                <button (click)="addPersona()" [disabled]="deshabilitar || esSoloLectura">+</button> &nbsp;&nbsp;
+                <button (click)="eliminarPersona()" [disabled]="deshabilitar || esSoloLectura">-</button>
+            </div>
+        </div>
+
+    </div>
+
+    <br><br>
+
+    <div class="row" *ngIf="!deshabilitar">
+        <div class="col-sm-12" style="text-align: start;">
+            <button *ngIf="!esSoloLectura" [disabled]="!this.formGroup.valid || !this.personaNotificaciones.valid" type="button"
+                class="btn btn-primary" (click)="guardar()">
+                Guardar
+            </button >
+            &nbsp;&nbsp;
+            <button type="button" class="btn btn-secondary" (click)="salir()">
+                Salir
+            </button>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="idPerfil == 11">
+        <div class="col-sm-12" style="text-align: start;">
+            <button type="button" class="btn btn-secondary" (click)="salir()">
+                Salir
+            </button>
+        </div>
+    </div>
+
+    <br><br>
+
+</div>

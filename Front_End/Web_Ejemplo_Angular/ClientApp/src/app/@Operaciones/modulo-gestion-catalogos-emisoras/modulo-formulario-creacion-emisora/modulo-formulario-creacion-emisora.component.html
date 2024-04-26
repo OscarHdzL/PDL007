@@ -1,0 +1,88 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Agregar Componente</h4>
+</div>
+<form role="form" [formGroup]="formGroup" (submit)="OnSubmit()">
+  <div class="modal-body">
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label class="control-label requerido">Frecuencia canal:</label>
+        <input class="form-control" type="text" formControlName="frecuencia_canal" required />
+        <div class="error" *ngIf=" formGroup.get('frecuencia_canal').errors?.required && formGroup.get('frecuencia_canal').touched">
+          El campo es requerido
+        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <label class="control-label requerido">Proveedor:</label>
+        <input class="form-control" type="text" formControlName="proveedor" required />
+        <!-- <div class="error" *ngIf="formGroup.get('proveedor').errors?.required && formGroup.get('proveedor').touched">
+          El campo es requerido
+        </div> -->
+      </div>
+      </div>
+      <div class="row">
+      <div class="form-group col-md-4">
+        <label class="control-label requerido">Televisora o Radiodifusora:</label>
+        <input class="form-control" type="text" formControlName="televisora_radiodifusora" required />
+        <div class="error" *ngIf="formGroup.get('televisora_radiodifusora').errors?.required && formGroup.get('televisora_radiodifusora').touched">
+          El campo es requerido
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label class="control-label requerido">Lugar transmisión:</label>
+        <select   [attr.disabled]="states.length === 0 ? true : null" class="form-control" name="lugar_transmision" id="lugar_transmision"formControlName="lugar_transmision" required>
+          <option value="">-Lugar de transmisión-</option>
+          <option *ngFor="let state of states" [ngValue]="state.idEstado">{{state.nombre}}</option>
+        </select>
+        <div class="error" *ngIf="formGroup.get('lugar_transmision').errors?.required && formGroup.get('lugar_transmision').touched">
+          El campo es requerido
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label class="control-label requerido">¿ Es televisora ?:</label>
+        <select name="televisora" id="televisora" formControlName="televisora" class="form-control">
+          <option value="">-¿ Es televisora ?-</option>
+          <option [ngValue]="true">Si</option>
+          <option [ngValue]="false">No</option>
+        </select>
+        <div class="error" *ngIf=" formGroup.get('televisora').errors?.required && formGroup.get('televisora').touched">
+          El campo es requerido
+        </div>
+      </div>
+
+    </div>
+    <!-- <div class="row">
+      <div class="form-group col-md-6">
+        <label class="control-label">Fecha Inicio Vigencia:</label>
+        <input class="form-control form-date"
+               type="date"
+               formControlName="c_f_inic_vig"
+               required />
+        <div *ngIf="formGroup.invalid">
+          {{ obtenerErroresFechaInicio() }}
+        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <label class="control-label">Fecha Fin Vigencia:</label>
+        <input class="form-control"
+               type="date"
+               formControlName="c_f_fin_vig"
+               required />
+        <div *ngIf="formGroup.invalid">
+          {{ obtenerErroresFechaFin() }}
+        </div>
+      </div>
+    </div> -->
+  </div>
+  <div class="modal-footer">
+    <button (click)="OnSubmit()"
+            [disabled]="!this.formGroup.valid"
+            class="btn btn-primary">
+      Aceptar
+    </button>
+    <button type="button"
+            class="btn btn-secondary"
+            (click)="activeModal.close('Close click')">
+      Cancelar
+    </button>
+  </div>
+</form>

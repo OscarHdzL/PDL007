@@ -1,0 +1,97 @@
+<div class="container">
+    <div class="row">
+        <form role="form" [formGroup]="formGroup">
+
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-4" style="text-align: end;">
+                    <span style="font-weight: bold;font-size: 20px;">Nombre completo:</span>
+                </div>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" formControlName="nombreCompleto" disabled />
+                </div>
+            </div>
+
+            <br>
+            <div class="row">
+                <div class="col-sm-6" style="text-align: end;">
+                    <span style="font-weight: bold;font-size: 20px;">Denominación de la Asociación religiosa: <span
+                            style="color: red;">*</span></span>
+                </div>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" formControlName="denominacionReligiosa" appTrim maxlength="150"/>
+                    <div *ngFor="let error of mensajesValidacion.denominacionReligiosa">
+                        <ng-container
+                            *ngIf="denominacionReligiosa!.hasError(error.type) && (denominacionReligiosa!.dirty || denominacionReligiosa!.touched)">
+                            <small class="errorValidation">{{error.message}}</small>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <div class="row">
+                <div class="col-sm-6" style="text-align: end;">
+                    <span style="font-weight: bold;font-size: 20px;">Número de Registro SGAR: <span
+                            style="color: red;">*</span></span>
+                </div>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" formControlName="numeroRegistroSGAR" appTrim maxlength="20"/>
+                    <div *ngFor="let error of mensajesValidacion.numeroRegistroSGAR">
+                        <ng-container
+                            *ngIf="numeroRegistroSGAR!.hasError(error.type) && (numeroRegistroSGAR!.dirty || numeroRegistroSGAR!.touched)">
+                            <small class="errorValidation">{{error.message}}</small>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <div class="row">
+                <div class="col-sm-6" style="text-align: end;margin-top: 10px;">
+                    <span style="font-weight: bold;font-size: 20px;">Cargo: <span style="color: red;">*</span></span>
+                </div>
+                <div class="col-sm-6">
+                    <label>
+                        <span style="display: inline-block;width: 25px;margin-bottom: -12px;margin-right: 12px;">
+                            <input class="form-control" type="radio" formControlName="cargo" [value]="1" />
+                        </span>
+                        <span>Representante Legal</span>
+                    </label>
+                    &nbsp;&nbsp;&nbsp;
+
+                    <label>
+                        <span style="display: inline-block;width: 25px;margin-bottom: -12px;margin-right: 12px;">
+                            <input class="form-control" type="radio" formControlName="cargo" [value]="2" />
+                        </span>
+                        <span>Apoderado Legal</span>
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <br><br>
+
+    <div class="row" *ngIf="!deshabilitar">
+        <div class="col-sm-12" style="text-align: end;">
+            <button type="button" class="btn btn-secondary" (click)="salir()">
+                Salir
+            </button>
+            &nbsp;&nbsp;
+            <button *ngIf="!esSoloLectura" [disabled]="!this.formGroup.valid" type="button" class="btn btn-primary" (click)="guardar()">
+                Guardar
+            </button>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="idPerfil == 11">
+        <div class="col-sm-12" style="text-align: start;">
+            <button type="button" class="btn btn-secondary" (click)="salir()">
+                Salir
+            </button>
+        </div>
+    </div>
+
+    <br><br>
+</div>
