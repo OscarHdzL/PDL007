@@ -38,7 +38,7 @@
                     <td>{{ registro.reg_estatus }}</td>
                     <td>{{ registro.correo_dic }}</td>
                     <td class="text-left">
-                          <select
+                          <select *ngIf="registro.reg_estatus == 'En Espera'"
                             class="form-control"
                             (change)="onChange($event.target.value,registro.reg_id)"
                           >
