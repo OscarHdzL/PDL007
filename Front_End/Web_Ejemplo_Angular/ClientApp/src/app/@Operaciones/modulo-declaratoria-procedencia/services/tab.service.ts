@@ -108,6 +108,7 @@ export class TabService {
 
   //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   public cambiarTabSolicitudRegistro(valor) {
+
     this.ultimoPasoRegistrado$.next(valor)
   }
 

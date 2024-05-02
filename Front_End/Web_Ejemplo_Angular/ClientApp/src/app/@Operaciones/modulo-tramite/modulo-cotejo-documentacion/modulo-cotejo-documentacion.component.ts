@@ -29,6 +29,8 @@ export class ModuloCotejoDocumentacionComponent implements OnInit {
   listaEstatus = [];
   listaHorarios = [];
 
+  bloqueoDictminador: boolean;
+
   showControls: boolean = false;
   isDictaminador: boolean = false;
   Valido: boolean = false;
@@ -62,6 +64,7 @@ export class ModuloCotejoDocumentacionComponent implements OnInit {
   }
 
   async ngOnInit() {
+
     this.us_id = AuthIdentity.ObtenerUsuarioRegistro();
     this.isDictaminador = AuthIdentity.IsDictaminador();
     this.routes = TramiteRoutes.GetRoutesByRol(7);
@@ -172,7 +175,9 @@ export class ModuloCotejoDocumentacionComponent implements OnInit {
       .subscribe(
         (tempdate) => {
           if (tempdate) {
+
             this.response = tempdate.response[0];
+            this.bloqueoDictminador = this.response.s_estatus == 15 || this.response.s_estatus == 19 || this.response.s_estatus == 20 ? true : false;
             if (this.response) {
               this.id_tramite = this.response.s_id;
               if (this.response.s_estatus < 14) {

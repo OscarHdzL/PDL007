@@ -24,6 +24,7 @@ export class ModuloFinalizacionCotejoComponent implements OnInit {
   request: any;
   response: any;
   listaEstatus = [];
+  bloqueoDictminador: boolean = false;
 
   showControls: boolean = false;
   isDictaminador: boolean = false;
@@ -165,8 +166,10 @@ export class ModuloFinalizacionCotejoComponent implements OnInit {
       )
       .subscribe(
         (tempdate) => {
+
           if (tempdate) {
             this.response = tempdate.response[0];
+            this.bloqueoDictminador = this.response.s_estatus == 15 || this.response.s_estatus == 19 || this.response.s_estatus == 20 ? true : false;
 
             if (this.response) {
               this.id_tramite = this.response.s_id;

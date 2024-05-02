@@ -226,6 +226,7 @@ export class ModuloSolicitudTercerPasoComponent implements OnInit {
   }
 
   validarAcceso(): void {
+
     let params = this.localStorageService.getJsonValue('solicitudregistroconsulta');
     if (params != null && localStorage.getItem("solicitudregistroconsulta") === "1") {
       this.bloqueo = params.idbloqueo

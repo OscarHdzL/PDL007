@@ -469,6 +469,7 @@ export class ModuloSolicitudPrimerPasoComponent implements OnInit {
 
   //#region Eventos
   public seleccionoTipoSolicitudEscrito(valor: any): void {
+
     if (valor && valor === '1') {
       this.msjLabelMostrar = (this.isDictaminador == true && valor === '1') ? 'No. De Registro/Matriz' : 'Número de SGAR ';
 
@@ -479,7 +480,7 @@ export class ModuloSolicitudPrimerPasoComponent implements OnInit {
         Validators.pattern(/^[-_/: a-zA-Z0-9]+$/)]));
       this.formGroup.controls['c_matriz'].updateValueAndValidity();
     } else {
-      this.msjLabelMostrar = 'Matriz';
+      this.msjLabelMostrar = 'Número de SGAR';
       this.seleccionoMatriz = false;
       this.formGroup.controls['c_matriz'].reset();
       this.formGroup.controls['c_matriz'].clearValidators();
@@ -492,7 +493,7 @@ export class ModuloSolicitudPrimerPasoComponent implements OnInit {
   private tipoSolicitudEscrito(valor: string): void {
 
     if (valor && valor === '1') {
-      this.msjLabelMostrar = (this.isDictaminador == true && valor === '1') ? 'No. De Registro/Matriz' : 'Matriz';
+      this.msjLabelMostrar = (this.isDictaminador == true && valor === '1') ? 'No. De Registro/Matriz' : 'Número de SGAR';
 
       this.formGroup.controls['c_matriz'].addValidators(Validators.compose([
         Validators.required,

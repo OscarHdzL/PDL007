@@ -113,6 +113,7 @@ export class RefactorModuloTramitesComponent implements OnInit {
         }
       ]
     this.pasoSeleccionadoObs = this.tabService.ultimoPasoRegistrado$.subscribe(async (valor) => {
+
       this.pasoSeleccionado = valor;
       // console.log("cambio el id", valor)
       for (let i = 0; i < this.routes.length; i++) {
@@ -120,6 +121,7 @@ export class RefactorModuloTramitesComponent implements OnInit {
         else this.routes[i].activo = false
       }
     })
+
     this.pasoSeleccionado = ultimo == null || ultimo == 0 ?
       this.pasoSeleccionado = 1 : ultimo == 6 ? this.pasoSeleccionado = 6 : this.pasoSeleccionado = ultimo + 1;
     this.tabService.cambiarTabSolicitudRegistro(this.pasoSeleccionado)
@@ -131,6 +133,7 @@ export class RefactorModuloTramitesComponent implements OnInit {
 
 
     this.ultimoPasoAlQueTenemosAccesoObs = this.tabService.valoresTabs$.subscribe(async (valor) => {
+
       this.ultimoPasoAlQueTenemosAcceso = valor;
       localStorage.setItem("ultimoPasoAlQueTenemosAcceso", String(this.ultimoPasoAlQueTenemosAcceso))
     })
@@ -147,7 +150,9 @@ export class RefactorModuloTramitesComponent implements OnInit {
       if (this.estatus == 19 || this.estatus == 20) {
         this.pasoSeleccionado = 1;
         this.tabService.cambiarTabSolicitudRegistro(this.pasoSeleccionado)
-        this.ultimoPasoAlQueTenemosAcceso = 6;
+        // this.ultimoPasoAlQueTenemosAcceso = 6;
+        // lim 02/05/2024
+        this.ultimoPasoAlQueTenemosAcceso = 10;
       }else {
         this.pasoSeleccionado = 1;
         this.tabService.cambiarTabSolicitudRegistro(this.pasoSeleccionado)
