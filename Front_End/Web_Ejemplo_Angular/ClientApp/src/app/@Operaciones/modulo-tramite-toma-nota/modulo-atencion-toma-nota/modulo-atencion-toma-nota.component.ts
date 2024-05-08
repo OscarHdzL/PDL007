@@ -853,20 +853,20 @@ export class ModuloAtencionTomaNotaComponent implements OnInit{
             }
 
               if (id == 11) {
-                if (this.response.s_cumple == null && this.response.s_estatus != 24 && this.response.s_estatus != 40) {
+                if (this.response.s_cumple == null && this.response.s_estatus != 24 && this.response.s_estatus != 25) {//this.response.s_estatus != 40) {
                   this.ShowClickPage('CotejoDocumentacion');
                 } else {
                 if (this.response.s_estatus < 25) {
                   this.response.s_estatus = 0;
                 } else if (this.response.s_estatus == 26) {
                   this.response.s_estatus = 26;
-                } else if (this.response.s_estatus == 40) {
-                  this.response.s_estatus = 40;
+                } else if (this.response.s_estatus == 25) {//40) {
+                  this.response.s_estatus = 25;//40;
                 } else {
                   if (this.response.s_cumple == true) {
                     this.response.s_estatus = 26;
                   } else {
-                    this.response.s_estatus = 40;
+                    this.response.s_estatus = 25;//40;
                   }
                 }
                 this.doc1 = this.response.s_doc1;
