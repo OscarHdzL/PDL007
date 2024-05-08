@@ -279,18 +279,21 @@ export class ModuloConsultaTransmisionComponent implements OnInit {
   }
 
   concluirTramite() {
+
     this.operacionRespuesta.EstaEjecutando = true;
     let model = this.formGroupConcluirTramite.value;
     model.id_transmision = Number(this.i_id_transmision);
     model.id_estatus = this.id_estatusSeleccionado;
     model.id_usuario = this.modeloTramite.c_us;
 
-    if (this.archivoOficioBase !== null) {
-      this.fileService.cargarArchivo(this.i_id_transmision, this.archivoOficioBase, 29);
-    } else {
-      this.operacionRespuesta.EstaEjecutando = false;
-      this.openMensajes(["Es necesario cargar el oficio"], []);
-      return;
+    if(this.id_estatusSeleccionado == 34){ //SE MENCIONA QUE SOLO LA SOLICITUD CONCLUIDA REQUIERE OFICIO
+      if (this.archivoOficioBase !== null) {
+        this.fileService.cargarArchivo(this.i_id_transmision, this.archivoOficioBase, 29);
+      } else {
+        this.operacionRespuesta.EstaEjecutando = false;
+        this.openMensajes(["Es necesario cargar el oficio"], []);
+        return;
+      }
     }
 
     this.services
@@ -327,7 +330,9 @@ export class ModuloConsultaTransmisionComponent implements OnInit {
         this.modelo_configuracion.serviciosCatalogos +
         "/Director/Get")
       .subscribe(
+
         (tempdate) => {
+
           if (tempdate) {
             this.lstDirectores = tempdate.response;
           } else {
@@ -351,6 +356,7 @@ export class ModuloConsultaTransmisionComponent implements OnInit {
       .subscribe(
         (tempdate) => {
           if (tempdate) {
+
             this.modeloTramite = tempdate.response[0];
             this.i_id_transmision = this.modeloTramite.i_id_tbl_transmision;
             this.identificacion = ((this.modeloTramite.b_identificacion != 0 && this.modeloTramite.b_identificacion != null) ? true : false);
@@ -519,6 +525,7 @@ export class ModuloConsultaTransmisionComponent implements OnInit {
   }
 
   private validarBotones(): void {
+
 
     this.b_observar = (this.modeloOficio != undefined  && (this.modeloTramite.estatus != 31 && this.modeloTramite.estatus != 32) ? true : false);
     this.b_autorizar = (this.modeloOficio != undefined && (this.modeloTramite.estatus != 31 && this.modeloTramite.estatus != 32 ) ? true : false);

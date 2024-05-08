@@ -139,6 +139,7 @@ export class ModuloSolicitudTransmisionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.us_id = AuthIdentity.ObtenerUsuarioRegistro();
     this.isDictaminador = AuthIdentity.IsDictaminador();
     this.iniciarFechaCalendario();
@@ -1057,6 +1058,24 @@ export class ModuloSolicitudTransmisionComponent implements OnInit {
     }
   }
 
+
+  openMensajeCargaArchivo(Errores: string[], Mensajes: string[]) {
+    this.modalrefMsg = this.modalService.open(ModuloModalMensajeComponent, {
+      ariaLabelledBy: "modal-basic-title",
+    });
+    this.modalrefMsg.componentInstance.mensajesError = [];
+    this.modalrefMsg.componentInstance.mensajesExito = [];
+    this.modalrefMsg.componentInstance.mensajesTitulo = "Cargar Documentos";
+    if (Errores?.length > 0) {
+      this.modalrefMsg.componentInstance.showErrors = true;
+      this.modalrefMsg.componentInstance.mensajesError.push(Errores);
+    }
+    if (Mensajes?.length > 0) {
+      this.modalrefMsg.componentInstance.showExitos = true;
+      this.modalrefMsg.componentInstance.mensajesExito.push(Mensajes);
+    }
+  }
+
   async consultarListArchivosTransmision() {
     this.operacionRespuesta.EstaEjecutando = true;
     await this.services.getAsync(`${this.modelo_configuracion.serviciosOperaciones}/ConsultaListaArchivos/Get?transmisionId=${this.i_id_transmision}`)
@@ -1185,6 +1204,7 @@ export class ModuloSolicitudTransmisionComponent implements OnInit {
         this.listArchivosDelete.push(file[i]);
       } else {
         this.listaArchivosModal.push(file[i]);
+        this.openMensajeCargaArchivo([],["El documento se ha cargado de forma exitosa."])
       }
     }
   }

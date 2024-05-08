@@ -145,6 +145,7 @@ export class ModuloAnexosComponent implements OnInit {
   }
 
   consultarAnexos(){
+
     const params = {
       id_toma_nota: this.id,
       id_tramite: this.id_archivo_tramite
