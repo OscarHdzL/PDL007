@@ -142,8 +142,8 @@
                           </button>
 
                           <button class="bootstrap-icons  icono-grande "
-                                  [ngClass]="{'icono-grande': (reporte.id_estatus === 12)}"
-                                  [disabled]="!(reporte.id_estatus === 12)"
+                                  [ngClass]="{'icono-grande': (reporte.id_estatus === 12 || reporte.id_estatus === 13)}"
+                                  [disabled]="!(reporte.id_estatus === 12 || reporte.id_estatus === 13)"
                                   title="Eliminar"
                                   type="button"
                                   (click)="openConfirmacion(reporte.id_tnota)">
