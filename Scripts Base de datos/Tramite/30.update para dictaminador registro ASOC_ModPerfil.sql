@@ -1,0 +1,1 @@
+update religiosos."ASOC_ModPerfil" set i_id_tbl_modulo = 39 where i_id = 14;

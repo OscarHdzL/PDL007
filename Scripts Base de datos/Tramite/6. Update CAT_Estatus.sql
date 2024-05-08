@@ -1,0 +1,10 @@
+update religiosos."CAT_Estatus" set i_orden = 1 where i_id = 1;
+update religiosos."CAT_Estatus" set i_orden = 2 where i_id = 2;
+update religiosos."CAT_Estatus" set i_orden = 3 where i_id = 3;
+update religiosos."CAT_Estatus" set i_orden = 4 where i_id = 4;
+update religiosos."CAT_Estatus" set i_orden = 5 where i_id = 5;
+update religiosos."CAT_Estatus" set i_orden = 6 where i_id = 6;
+update religiosos."CAT_Estatus" set i_orden = 7 where i_id = 7;
+update religiosos."CAT_Estatus" set i_orden = 8 where i_id = 8;
+update religiosos."CAT_Estatus" set i_orden = 9 where i_id = 9;
+update religiosos."CAT_Estatus" set i_orden = 10 where i_id = 10;

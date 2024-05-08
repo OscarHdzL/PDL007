@@ -1,0 +1,1 @@
+update religiosos."TBL_Usuario" set i_activo = 1 where i_id = 781;
