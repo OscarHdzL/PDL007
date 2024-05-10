@@ -117,7 +117,7 @@
             </button>
             &nbsp;&nbsp;
             <button *ngIf="!esSoloLectura" [disabled]="(!idDocumentoPeticion && !archivoDocumentacionPeticion) || (!idDocumentoAnexo1 && !archivoDocumentoAnexo1)
-            || ( !idDocumentoAnexo2 && !archivoDocumentoAnexo2) || !manifestacion.value || esSoloLectura" type="button"
+            || ( !idDocumentoAnexo2 && !archivoDocumentoAnexo2) || !manifestacion.value || esSoloLectura || !guardo" type="button"
                 class="btn btn-primary" (click)="finalizar()">
                 Finalizar
             </button>

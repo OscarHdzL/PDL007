@@ -61,6 +61,8 @@ export class ModuloFormularioRegistroPasoCincoComponent extends GeneralComponent
     public archivoDocumentoAnexo1Tipo = null;
     public archivoDocumentoAnexo2Tipo = null;
 
+    public guardo: boolean = false;
+
     archivoDocumentacionAutorizar = null;
 
     estaCargando: boolean = false;
@@ -184,6 +186,7 @@ export class ModuloFormularioRegistroPasoCincoComponent extends GeneralComponent
             this.idDocumentoAnexo2 = respuesta.response[0].anexo2;
             this.formGroup.get('manifestacion').setValue(respuesta.response[0].declaratoria_verdad);
             this.mostrarGeneraOficio = respuesta.response[0].genera_oficio;
+            this.guardo = true;
             if (this.deshabilitar || this.esSoloLectura)
                 this.formGroup.disable()
         }
