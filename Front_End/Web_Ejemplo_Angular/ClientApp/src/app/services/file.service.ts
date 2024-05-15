@@ -20,7 +20,7 @@ export class FileService implements OnInit {
 
   ngOnInit() { }
 
-  public async cargarArchivo(id, base64Document, id_archivo_tramite): Promise<boolean> {
+  public async cargarArchivo(id, base64Document, id_archivo_tramite, mostrarMsj = true): Promise<boolean> {
     if (base64Document == null) return;
 
     const params = {
@@ -30,11 +30,11 @@ export class FileService implements OnInit {
     };
     let respuesta = await this.webRestService.postAsync(params, this.servicios.serviciosOperaciones + "/InsertarArchivo/Post");
     if (respuesta) {
-      if (respuesta[0].proceso_existoso == true) {
-        return true;
-      }
+      return respuesta[0].proceso_exitoso;
     } else {
-      this.openMensajes("El documento no se ha cargado de forma exitosa, por favor intente de nuevo.", true, "Carga de Documento");
+      if (mostrarMsj) {
+        this.openMensajes("El documento no se ha cargado de forma exitosa, por favor intente de nuevo.", true, "Carga de Documento");
+      }
       return false;
     }
   }
