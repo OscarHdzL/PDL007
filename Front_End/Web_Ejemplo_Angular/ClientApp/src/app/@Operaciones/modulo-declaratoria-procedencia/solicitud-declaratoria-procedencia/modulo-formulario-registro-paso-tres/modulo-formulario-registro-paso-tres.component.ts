@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Output } from "@angular/core";
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, Routes } from "@angular/router";
 import { AuthIdentity } from "src/app/guards/AuthIdentity";
@@ -12,6 +12,7 @@ import { TabService } from "../../services/tab.service";
 import { NgbModal, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
 import { GeneralComponent } from "../../components/general/general.component";
 import { Subscription } from "rxjs";
+import { EventEmitter } from "@angular/core";
 
 @Component({
   selector: "app-modulo-formulario-registro-paso-tres",
@@ -32,6 +33,8 @@ export class ModuloFormularioRegistroPasoTresComponent extends GeneralComponent 
   paso3Subscription: Subscription | undefined;
   paso3: boolean = null;
   esSoloLectura: any = localStorage.getItem("modoLectura") == "1" ? true : false;
+  @Output()
+  eventCambioTab = new EventEmitter<number>();
 
   get d_cpostal() {
     return this.formGroup.get("d_cpostal")
@@ -160,7 +163,6 @@ export class ModuloFormularioRegistroPasoTresComponent extends GeneralComponent 
   }
 
   public async guardar() {
-
     let formulario = this.formGroup.value;
     let objeto = {
       "p_id_declaratoria": this.id_tramite,
@@ -186,6 +188,7 @@ export class ModuloFormularioRegistroPasoTresComponent extends GeneralComponent 
       this.tabsService.cambiarValorPaso(3, true);
       this.tabsService.cambiarPasoContinuacion(4);
       this.tabsService.cambiarTab(4);
+      this.eventCambioTab.emit(4);
     } else {
       this.openMensajes("La información no se ha guardado de forma exitosa.", true, "Declaratoria de procedencia");
     }

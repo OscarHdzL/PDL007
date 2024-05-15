@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, Routes } from "@angular/router";
 import { AuthIdentity } from "src/app/guards/AuthIdentity";
@@ -33,7 +33,8 @@ export class ModuloFormularioRegistroPasoDosComponent extends GeneralComponent i
   paso2Subscription: Subscription | undefined;
   paso2: boolean = null;
   esSoloLectura: any = localStorage.getItem("modoLectura") == "1" ? true : false;
-
+  @Output()
+  eventCambioTab = new EventEmitter<number>();
   get d_cpostal() {
     return this.formGroup.get("d_cpostal")
   }
@@ -232,6 +233,7 @@ export class ModuloFormularioRegistroPasoDosComponent extends GeneralComponent i
       this.tabsService.cambiarValorPaso(2, true)
       this.tabsService.cambiarPasoContinuacion(3)
       this.tabsService.cambiarTab(3);
+      this.eventCambioTab.emit(3);
     } else {
       this.openMensajes("La información no se ha guardado de forma exitosa.", true, "Declaratoria de procedencia");
     }

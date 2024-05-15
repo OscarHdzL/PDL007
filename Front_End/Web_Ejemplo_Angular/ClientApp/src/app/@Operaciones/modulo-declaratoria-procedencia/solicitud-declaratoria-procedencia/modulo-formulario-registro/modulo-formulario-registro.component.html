@@ -27,10 +27,10 @@
 </div>
 
 
-<app-modulo-formulario-registro-paso-uno *ngIf="pasoSeleccionado == 1"></app-modulo-formulario-registro-paso-uno>
-<app-modulo-formulario-registro-paso-dos *ngIf="pasoSeleccionado == 2"></app-modulo-formulario-registro-paso-dos>
-<app-modulo-formulario-registro-paso-tres *ngIf="pasoSeleccionado == 3"></app-modulo-formulario-registro-paso-tres>
-<app-modulo-formulario-registro-paso-cuatro *ngIf="pasoSeleccionado == 4"></app-modulo-formulario-registro-paso-cuatro>
+<app-modulo-formulario-registro-paso-uno *ngIf="pasoSeleccionado == 1" (eventCambioTab)="cambioTab($event)"></app-modulo-formulario-registro-paso-uno>
+<app-modulo-formulario-registro-paso-dos *ngIf="pasoSeleccionado == 2" (eventCambioTab)="cambioTab($event)"></app-modulo-formulario-registro-paso-dos>
+<app-modulo-formulario-registro-paso-tres *ngIf="pasoSeleccionado == 3" (eventCambioTab)="cambioTab($event)"></app-modulo-formulario-registro-paso-tres>
+<app-modulo-formulario-registro-paso-cuatro *ngIf="pasoSeleccionado == 4" (eventCambioTab)="cambioTab($event)"></app-modulo-formulario-registro-paso-cuatro>
 <app-modulo-formulario-registro-paso-cinco *ngIf="pasoSeleccionado == 5"></app-modulo-formulario-registro-paso-cinco>
 
 

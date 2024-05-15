@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output, TemplateRef, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from "@angular/router";
 import { AuthIdentity } from "src/app/guards/AuthIdentity";
@@ -40,7 +40,8 @@ export class ModuloFormularioRegistroPasoCuatroComponent extends GeneralComponen
   conteoMinimoEspecoficacion: number = 0;
   @ViewChild("contentAutorizar", { static: false }) modalAutorizar: TemplateRef<any>;
   @ViewChild("contentAudvertencia", { static: false }) modalAdvertencia: TemplateRef<any>;
-
+  @Output()
+  eventCambioTab = new EventEmitter<number>();
   get superficie() {
     return this.formGroupBase.get("superficie");
   }
@@ -317,6 +318,7 @@ export class ModuloFormularioRegistroPasoCuatroComponent extends GeneralComponen
       this.tabsService.cambiarValorPaso(4, true)
       this.tabsService.cambiarPasoContinuacion(5)
       this.tabsService.cambiarTab(5);
+      this.eventCambioTab.emit(5)
     } else {
       this.openMensajes("La información no se ha guardado de forma exitosa.", true, "Declaratoria de procedencia");
     }

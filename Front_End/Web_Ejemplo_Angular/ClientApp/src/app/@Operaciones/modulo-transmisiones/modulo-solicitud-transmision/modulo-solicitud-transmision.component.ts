@@ -119,7 +119,6 @@ export class ModuloSolicitudTransmisionComponent implements OnInit {
   public listaArchivosModal: Anexos[] = [];
   public listArchivosDelete = [];
 
-  respuestaArchivos = [];
 
   constructor(private services: ServiceGenerico,
     private _route: ActivatedRoute,
@@ -939,6 +938,7 @@ export class ModuloSolicitudTransmisionComponent implements OnInit {
 
   }
   onChange(valor) {
+    console.log(valor)
     this.b_fechasRango = (valor.value == 1 ? true : false);
     this.b_fechasFrecuencia = (valor.value == 2 ? true : false);
     this.b_fechasCalendario = (valor.value == 3 ? true : false);
@@ -1132,7 +1132,7 @@ export class ModuloSolicitudTransmisionComponent implements OnInit {
     this.solicitudTransBase64 = file.sent ? file.base64 : null;
   }
 
-  public async guardarArchivos() {
+  public guardarArchivos() {
     let i: number;
     for (i = 0; i < this.listaArchivosModal.length; i++) {
       const formData: any = new FormData();
@@ -1142,13 +1142,11 @@ export class ModuloSolicitudTransmisionComponent implements OnInit {
       formData.append('extension', this.listaArchivosModal[i].extension);
       formData.append('id_tramite', 27);
 
-      await this.services.HttpPostFile(formData, this.modelo_configuracion.serviciosOperaciones + '/AnexosAsunto/InsertarAnexoAsunto')
-        .toPromise()
-        .then((response: any) => {
-          const respuesta = response ? response.response[0].proceso_exitoso : false;
-          this.respuestaArchivos.push(respuesta);
+      this.services.HttpPostFile(formData, this.modelo_configuracion.serviciosOperaciones + '/AnexosAsunto/InsertarAnexoAsunto')
+        .subscribe((response: any) => {
           this.consultarListArchivosTransmision();
-        })
+        });
+
     }
     this.listaArchivosModal = [];
   }
@@ -1183,7 +1181,7 @@ export class ModuloSolicitudTransmisionComponent implements OnInit {
 
     this.modalService.dismissAll();
 
-    await this.guardarArchivos();
+    this.guardarArchivos();
 
     if (this.listArchivosDelete.length > 0) {
       for (let i = 0; i < this.listArchivosDelete.length; i++) {
@@ -1196,22 +1194,8 @@ export class ModuloSolicitudTransmisionComponent implements OnInit {
     }
 
     if (this.solicitudTransBase64 !== null) {
-      const respuesta = await this.fileService.cargarArchivo(this.i_id_transmision, this.solicitudTransBase64, 28, false);
-      this.respuestaArchivos.push(respuesta);
+      await this.fileService.cargarArchivo(this.i_id_transmision, this.solicitudTransBase64, 28);
     }
-    this.validarRespuesta();
-  }
-
-  validarRespuesta() {
-    if(this.respuestaArchivos.length === 0) { return; }
-    const hayError = this.respuestaArchivos.indexOf(false);
-    if (hayError !== -1) {
-      this.openMensajes(["Los documentos no se han cargado de forma exitosa, por favor intente de nuevo."], []);
-      this.respuestaArchivos = [];
-      return;
-    }
-    this.openMensajeCargaArchivo([],["Los documentos se han cargado de forma exitosa."]);
-    this.respuestaArchivos = [];
   }
 
   guardarAnexosIne(file: any) {
@@ -1220,6 +1204,7 @@ export class ModuloSolicitudTransmisionComponent implements OnInit {
         this.listArchivosDelete.push(file[i]);
       } else {
         this.listaArchivosModal.push(file[i]);
+        this.openMensajeCargaArchivo([],["El documento se ha cargado de forma exitosa."])
       }
     }
   }

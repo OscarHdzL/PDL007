@@ -92,13 +92,13 @@ export class ModuloFormularioRegistroComponent implements OnInit, OnDestroy {
         activo: false
       }
     ];
- 
+
     this.idDeclaratoria = this.activetedRoute.snapshot.paramMap.get("declaratoria") ? this.activetedRoute.snapshot.paramMap.get("declaratoria") : 0;
     this.tabService.cambiarIdDeclaratoria(this.idDeclaratoria)
     if(this.idDeclaratoria == 0)
     // console.log(this.idDeclaratoria)
 
-    
+
 
     this.userChangedSubscription = this.tabService.numeroTabObs$.subscribe(async (valor) => {
       this.pasoSeleccionado = valor;
@@ -141,6 +141,10 @@ export class ModuloFormularioRegistroComponent implements OnInit, OnDestroy {
     if (this.idDeclaratoria != 0) {
       await this.revisarPasoSiguiente()
     }
+
+  }
+  cambioTab(event: any){
+    this.cambiarComponente(this.routes.find(x => x.id == event), false);
 
   }
 

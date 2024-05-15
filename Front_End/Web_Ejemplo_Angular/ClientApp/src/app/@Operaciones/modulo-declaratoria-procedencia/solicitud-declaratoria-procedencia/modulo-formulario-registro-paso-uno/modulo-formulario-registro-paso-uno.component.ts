@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, Routes } from "@angular/router";
 import { NgbModal, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
@@ -32,7 +32,8 @@ export class ModuloFormularioRegistroPasoUnoComponent extends GeneralComponent i
   public routes: any[];
   modelo_configuracion: ServiciosRutas;
   esSoloLectura: any = localStorage.getItem("modoLectura") == "1" ? true : false;
-
+  @Output()
+  eventCambioTab = new EventEmitter<number>();
   get denominacionReligiosa() {
     return this.formGroup.get("denominacionReligiosa")
   }
@@ -117,6 +118,7 @@ export class ModuloFormularioRegistroPasoUnoComponent extends GeneralComponent i
       this.openMensajes("La información se ha guardado de forma exitosa.", false, "Declaratoria de procedencia");
       this.tabsService.cambiarValorPaso(1, true)
       this.tabsService.cambiarTab(2);
+      this.eventCambioTab.emit(2)
     } else {
       this.openMensajes("La información no se ha guardado de forma exitosa.", true, "Declaratoria de procedencia");
     }
