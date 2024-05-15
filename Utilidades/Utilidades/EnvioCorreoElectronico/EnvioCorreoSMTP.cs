@@ -94,7 +94,7 @@ namespace Utilidades.EnvioCorreoElectronico
             {
                 Host = smtp,
                 Port = Int32.Parse(puerto),
-                EnableSsl = true,
+                EnableSsl = false,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = false,
                 Credentials = credentials
