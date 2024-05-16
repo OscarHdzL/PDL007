@@ -810,4 +810,7 @@ export class ModuloConsultaTransmisionComponent implements OnInit {
     });
   }
 
+  mandarModificacion() {
+    this.router.navigate(['/solicitud-transmision/' + Number(this.i_id_transmision)]);
+  }
 }

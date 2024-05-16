@@ -314,6 +314,13 @@ row.c_fecha_fin | date:
                 Salir
         </button>
 
+        <button type="button"
+                class="btn btn-secondary btnbtns"
+                *ngIf="id_estatus === 30 || id_estatus === 38"
+                (click)="mandarModificacion()">
+                Editar
+        </button>
+
         <button *ngIf="isDictaminador"
                 style="width: 137px!important;"
                 type="button"
