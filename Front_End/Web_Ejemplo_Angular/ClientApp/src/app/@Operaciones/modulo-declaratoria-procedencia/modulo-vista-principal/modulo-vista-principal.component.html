@@ -182,7 +182,7 @@
                   (click)="mandarComentarios(catalogo)" *ngIf="catalogo.comentarios != null">
                   <i class="ti-file"></i>
                 </button>
-                <span class="circulo-Base Notificacion--rojo espacio-derecho-tabla" *ngIf="catalogo.comentarios != null"></span>
+                <span class="circulo-Base Notificacion--rojo espacio-derecho-tabla" *ngIf="catalogo.comentarios != null && !catalogo.notificacion_read"></span>
               </td>
             </tr>
           </tbody>

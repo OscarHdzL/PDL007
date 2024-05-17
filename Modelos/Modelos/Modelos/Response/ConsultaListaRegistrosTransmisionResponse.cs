@@ -19,5 +19,6 @@ namespace Modelos.Modelos.Response
         public int id_estatus { get; set; }
         public string estatus { get; set; }
         public DateTime? fecha_solicitud { get; set; }
+        public bool? notificacion_read { get; set; } = true;
     }
 }

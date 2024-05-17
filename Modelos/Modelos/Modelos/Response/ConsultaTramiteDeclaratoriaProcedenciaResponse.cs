@@ -99,6 +99,7 @@ namespace Modelos.Modelos.Response
         public int? id_dictaminador { get; set; }
         public string correo_dictaminador { get; set; }
         public string nombre_dictaminador { get; set; }
+        public bool? notificacion_read { get; set; } = true;
     }
 
     public class ConsultaDatosOficio

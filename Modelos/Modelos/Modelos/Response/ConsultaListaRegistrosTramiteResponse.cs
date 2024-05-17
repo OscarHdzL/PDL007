@@ -18,5 +18,6 @@ namespace Modelos.Modelos.Response
         public string  sol_registro { get; set; }
         public int? id_estatus { get; set; }
         public string estatus { get; set; }
+        public bool? notificacion_read { get; set; } = true;
     }
 }

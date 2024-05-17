@@ -223,7 +223,7 @@
                             class="circulo-Base Notificacion--rojo espacio-derecho"
                             *ngIf="
                               reporte.id_estatus >= 14 &&
-                              reporte.id_estatus <= 20
+                              reporte.id_estatus <= 20 && !reporte.notificacion_read
                             "
                           ></span>
                         </div>

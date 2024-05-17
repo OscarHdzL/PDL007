@@ -150,7 +150,7 @@
                           </button>
 
                           <span class="circulo-Base Notificacion--rojo espacio-derecho"
-                                *ngIf="(reporte.id_estatus >= 31 && reporte.id_estatus <= 34 )"></span>
+                                *ngIf="(reporte.id_estatus >= 31 && reporte.id_estatus <= 34 && !reporte.notificacion_read)"></span>
 
                         </div>
                       </div>

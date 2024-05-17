@@ -19,6 +19,7 @@ namespace Acceso_Datos.Operaciones
         private const string sp_eliminar_declaratoria = "religiosos.sp_eliminar_declaratoria";
         private const string sp_asignar_dictaminador_declaratoria = "religiosos.sp_asignar_dictaminador_declaratoria";
         private const string sp_insertar_observacion_declaratoria = "religiosos.sp_insertar_observacion_declaratoria";
+        private const string sp_actualizar_observacion_declaratoria = "religiosos.sp_actualizar_observacion_declaratoria";
         private const string sp_generar_oficio_declaratoria = "religiosos.sp_generar_oficio_declaratoria";
         private const string sp_estatus_finalizar_declaratoria = "religiosos.sp_estatus_finalizar_declaratoria";
         private const string sp_estatus_aprobar_declaratoria = "religiosos.sp_estatus_aprobar_declaratoria";
@@ -172,7 +173,41 @@ namespace Acceso_Datos.Operaciones
                 throw;
             }
         }
-        
+
+        public async Task<ResponseGeneric<List<ResponseGenerico>>> PutComentarios(ActualizaComentariosDeclaratoria request)
+        {
+            List<ResponseGenerico> respuesta = new List<ResponseGenerico>();
+
+            List<EntidadParametro> parametros = new List<EntidadParametro>();
+            parametros.Add(new EntidadParametro { Nombre = "p_id_declaratoria", Tipo = "Int", Valor = request.p_id_declaratoria });
+
+            try
+            {
+                using (var conexion = new Contexto())
+                {
+                    switch (int.Parse(Configuration["TipoBase"].ToString()))
+                    {
+                        case 1:
+                            var resulMySQL = StoreProcedureParametros.ParametrosMySQL(parametros, sp_actualizar_observacion_declaratoria);
+                            respuesta = await conexion.ResponseGenerico.FromSqlRaw(resulMySQL.Query, resulMySQL.ListaParametros.ToArray()).ToListAsync();
+                            break;
+
+                        case 2:
+                            var resulPostgreSQL = StoreProcedureParametros.ParametrosPostgreSQL(parametros, sp_actualizar_observacion_declaratoria, tipo: "SELECT * FROM");
+                            respuesta = await conexion.ResponseGenerico.FromSqlRaw(resulPostgreSQL.Query, resulPostgreSQL.ListaParametros.ToArray()).ToListAsync();
+                            break;
+                    }
+                }
+
+                return new ResponseGeneric<List<ResponseGenerico>>(respuesta);
+            }
+            catch (Exception ex)
+            {
+                LogErrores("OperacionesTramiteDeclaratoriaAccesoDatos - PutComentarios", ex);
+                throw;
+            }
+        }
+
         public async Task<ResponseGeneric<List<ResponseGenerico>>> GenerarOficio(ActualizarEstatusDeclaratoria request)
         {
             List<ResponseGenerico> respuesta = new List<ResponseGenerico>();

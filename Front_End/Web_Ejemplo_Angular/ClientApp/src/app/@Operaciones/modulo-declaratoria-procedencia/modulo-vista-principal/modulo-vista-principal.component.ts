@@ -201,10 +201,17 @@ export class ModuloVistaPrincipalComponent extends GeneralComponent implements O
         this.router.navigate(['/alta-declaratoria/' + declaratoria.id_declaratoria]);
     }
 
-    mandarComentarios(item: any) {
+    async mandarComentarios(item: any) {
+        let objeto = {
+            "p_id_declaratoria": item.id_declaratoria
+        };
         localStorage.setItem("comentarios", item.comentarios);
         localStorage.setItem("idDeclaratoria", item.id_declaratoria);
-        this.router.navigate(['/comentarios']);
+
+        let respuesta = await this.webRestService.postAsync(objeto, this.modelo_configuracion.serviciosOperaciones + "/OperacionesTramiteDeclaratoria/PutComentarios")
+        if (respuesta != null && respuesta.response != null){
+            this.router.navigate(['/comentarios']);
+        }     
     }
 
     openEliminar(idDeclaratoriaEliminar: any) {

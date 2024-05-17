@@ -18,7 +18,12 @@ namespace Modelos.Modelos.Request
         public string p_comentarios { get; set; }
         
     }
-    
+
+    public class ActualizaComentariosDeclaratoria
+    {
+        public int p_id_declaratoria { get; set; }
+    }
+
     public class ActualizarEstatusDeclaratoria
     {
         public int p_id_declaratoria { get; set; }

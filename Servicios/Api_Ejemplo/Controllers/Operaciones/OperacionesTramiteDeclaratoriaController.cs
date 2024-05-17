@@ -161,7 +161,30 @@ namespace Asuntos_Religiosos_Api.Controllers.Operaciones
             } 
 
         }
-        
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> PutComentarios([FromBody] ActualizaComentariosDeclaratoria request)
+        {
+            try
+            {
+                var resultado = await _negocio.PutComentarios(request);
+                if (resultado.Status == ResponseStatus.Success)
+                {
+                    return Ok(resultado);
+                }
+                else
+                {
+                    return NoContent();
+                }
+            }
+            catch (Exception ex)
+            {
+                log.LogError("OperacionesTramiteDeclaratoriaController - PostComentarios", ex);
+                return BadRequest(new ResponseGeneric<string>("Error al realizar la acción, favor de revisar el log"));
+            }
+
+        }
+
         //[HttpPost("[action]")]
         [HttpGet("[action]")]
         public async Task<IActionResult> GenerarOficio([FromQuery] ActualizarEstatusDeclaratoria request)

@@ -103,7 +103,20 @@ namespace Negocio.Operaciones
                 throw;
             }
         }
-        
+
+        public async Task<ResponseGeneric<List<ResponseGenerico>>> PutComentarios(ActualizaComentariosDeclaratoria request)
+        {
+            try
+            {
+                return await _accesoDatos.PutComentarios(request);
+            }
+            catch (Exception ex)
+            {
+                LogErrores("OperacionesTramiteDeclaratoriaNegocio - PostComentarios", ex);
+                throw;
+            }
+        }
+
         public async Task<ResponseGeneric<List<ResponseGenerico>>> GenerarOficio(ActualizarEstatusDeclaratoria request)
         {
             try
