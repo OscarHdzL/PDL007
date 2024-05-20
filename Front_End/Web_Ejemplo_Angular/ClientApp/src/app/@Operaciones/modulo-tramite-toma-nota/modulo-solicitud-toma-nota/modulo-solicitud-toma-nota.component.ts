@@ -1505,7 +1505,7 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
   }
 
   async OnSubmitRepresentanteLegal() {
-    await this.obtenerRepresentanteLegalValida();
+    // await this.obtenerRepresentanteLegalValida();
 
     if (this.invalidrol == false) {
       if (this.doctosCompletosRepresentante == true && this.invalidrol == false) {
@@ -1760,61 +1760,47 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
     let idRepresentante;
     this.operacionRespuesta.EstaEjecutando = true;
     InfoUpdate.s_id = this.tomanota;
-
-    this.services
+    await this.services
       .HttpPost(
         InfoUpdate,
         this.modelo_configuracion.serviciosOperaciones +
         '/InsertarTomaNotaRepresentanteLegal/Post'
       )
-      .subscribe(
-        (tempdate) => {
-          if (tempdate) {
-            this.listMovimientos.repreLegal = true;
-            this.response = tempdate.response[0];
-            idRepresentante =  this.Representante_r_id !== 0 ? this.Representante_r_id : tempdate.response[0].c_repre;
+      .toPromise()
+      .then(tempdate => {
+        if (tempdate) {
+          this.listMovimientos.repreLegal = true;
+          this.response = tempdate.response[0];
+          this.openMensajes(this.response.mensaje, this.response.proceso_existoso);
+          idRepresentante =  this.Representante_r_id !== 0 ? this.Representante_r_id : tempdate.response[0].c_repre;
 
-            //if (this.response.proceso_existos) {
-
-              if (this.Representante_ineBase64 ===  null && this.Representante_actaBase64 === null && this.Representante_curpBase64 === null) {
-                this.operacionRespuesta.EstaEjecutando = false;
-                return;
-              }
-
-            if (this.Representante_ineBase64 !==  null) {
-              this.fileService.cargarArchivo(this.Representante_r_id , this.Representante_ineBase64, 7);
-            }
-
-            if (this.Representante_actaBase64 !==  null) {
-              this.fileService.cargarArchivo(this.Representante_r_id , this.Representante_actaBase64, 8);
-            }
-
-            if (this.Representante_curpBase64 !==  null) {
-              this.fileService.cargarArchivo(this.Representante_r_id , this.Representante_curpBase64, 9);
-            }
-
-            this.openMensajes(this.response.mensaje, this.response.proceso_existoso);
-
+          if (this.Representante_ineBase64 ===  null && this.Representante_actaBase64 === null && this.Representante_curpBase64 === null) {
+            this.operacionRespuesta.EstaEjecutando = false;
             this.ShowClickPage(this.obtenerEtiqueta());
-
-              /*this.returnPage(this.response.mensaje, false, 3);*/
-           /* } else {
-              this.openMensajes(
-                this.response.mensaje,
-                this.response.proceso_existoso
-              );
-            }*/
-          } else {
-            this.openMensajes('No se pudo realizar la acción', true);
+            return;
           }
-          this.obtenerRepresentanteLegalOrgano();
-          this.operacionRespuesta.EstaEjecutando = false;
-        },
-        async (err) => {
+
+          if (this.Representante_ineBase64 !==  null) {
+            this.fileService.cargarArchivo(this.Representante_r_id , this.Representante_ineBase64, 7);
+          }
+
+          if (this.Representante_actaBase64 !==  null) {
+            this.fileService.cargarArchivo(this.Representante_r_id , this.Representante_actaBase64, 8);
+          }
+
+          if (this.Representante_curpBase64 !==  null) {
+            this.fileService.cargarArchivo(this.Representante_r_id , this.Representante_curpBase64, 9);
+          }
+          this.ShowClickPage(this.obtenerEtiqueta());
+        } else {
           this.openMensajes('No se pudo realizar la acción', true);
-          this.operacionRespuesta.EstaEjecutando = false;
         }
-      );
+        this.operacionRespuesta.EstaEjecutando = false;
+      })
+      .catch(err => {
+        this.openMensajes('No se pudo realizar la acción', true);
+        this.operacionRespuesta.EstaEjecutando = false;
+      });
     await this.obtenerRepresentanteLegalOrgano();
   }
 
