@@ -1522,6 +1522,7 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
 
   }
   async OnSubmitApoderado() {
+  
     //await this.consultarAnexosApoderado(this.tomanota);   // Consulta documento escritura pública
     await this.obtenerDataPrincipalApoderado();           // consulta documentos poder
     //if (this.doctosCompletosApoderado == true && this.formGroupApoderado != undefined && this.doctosPoderApoderado == true) {
@@ -1805,6 +1806,7 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
   }
 
   async editarMovApoderado(InfoUpdate: InsertarTomaNotaApoderadoLegalRequest) {
+   
     this.operacionRespuesta.EstaEjecutando = true;
     InfoUpdate.s_id = this.tomanota;
 
@@ -1820,10 +1822,10 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
       altaapoderado_Doc = await this.fileService.cargarArchivo(this.tomanota, this.cambioapoderadodocBase64, 24);
     }
 
-    if (altaapoderado_Doc) {
+    /* if (altaapoderado_Doc) {
       this.operacionRespuesta.EstaEjecutando = false;
       return;
-    }
+    } */
 
     this.services
       .HttpPost(
