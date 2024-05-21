@@ -84,7 +84,7 @@
                     <th scope="col">Fecha Solicitud</th>
                     <th scope="col">Fecha Autorización</th>
                     <th scope="col">Estatus</th>
-                    <!-- <th scope="col">Acciones</th> -->
+                    <th scope="col">Acciones</th>
                     <!--th scope="col">Comentarios</th>-->
                   </tr>
                 </thead>
@@ -100,11 +100,10 @@
                     <td class="text-center"> {{reporte.fecha_solicitud | date: 'dd/MM/yyyy' }} </td>
                     <td class="text-center"> {{reporte.fecha_autorizacion | date: 'dd/MM/yyyy'}} </td>
                     <td class="text-left">   {{reporte.estatus}} </td>
-<!--                     <td>
+                    <td>
                       <div class="row text-center">
-                        <div class="col-xg-12" *ngIf="reporte.id_estatus !== 34 && reporte.id_estatus !== 33">
-                          <button class="bootstrap-icons  espacio-derecho-tabla icono-grande"
-                                  [ngClass]="{'icono-grande': ( reporte.id_estatus=== 33 ||  reporte.id_estatus === 34)}"
+                        <div class="col-xg-12">
+                          <button class="bootstrap-icons  espacio-derecho-tabla icono-grande" *ngIf=" reporte.id_estatus === 30 ||  reporte.id_estatus === 38"
                                   title="Modificar"
                                   type="button"
                                   (click)="mandarModificacion(reporte.id_transmision)">
@@ -112,7 +111,7 @@
                           </button>
                         </div>
                       </div>
-                    </td> -->
+                    </td>
 
                   </tr>
                 </tbody>
