@@ -1505,6 +1505,7 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
   }
 
   async OnSubmitRepresentanteLegal() {
+
     await this.obtenerRepresentanteLegalValida();
 
     if (this.invalidrol == false) {
@@ -1774,6 +1775,10 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
           idRepresentante =  this.Representante_r_id !== 0 ? this.Representante_r_id : tempdate.response[0].c_repre;
 
           if (this.Representante_ineBase64 ===  null && this.Representante_actaBase64 === null && this.Representante_curpBase64 === null) {
+            if (this.idTramite_aux !== 0) {
+              this.openMensajes(this.response.mensaje, this.response.proceso_existoso);
+              this.ShowClickPage(this.obtenerEtiqueta());
+            }
             this.operacionRespuesta.EstaEjecutando = false;
             return;
           }
