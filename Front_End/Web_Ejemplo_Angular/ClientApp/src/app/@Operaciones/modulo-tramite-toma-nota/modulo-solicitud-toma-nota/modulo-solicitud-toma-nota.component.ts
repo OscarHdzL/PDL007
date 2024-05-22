@@ -1505,7 +1505,7 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
   }
 
   async OnSubmitRepresentanteLegal() {
-    // await this.obtenerRepresentanteLegalValida();
+    await this.obtenerRepresentanteLegalValida();
 
     if (this.invalidrol == false) {
       if (this.doctosCompletosRepresentante == true && this.invalidrol == false) {
@@ -1522,7 +1522,6 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
 
   }
   async OnSubmitApoderado() {
-  
     //await this.consultarAnexosApoderado(this.tomanota);   // Consulta documento escritura pública
     await this.obtenerDataPrincipalApoderado();           // consulta documentos poder
     //if (this.doctosCompletosApoderado == true && this.formGroupApoderado != undefined && this.doctosPoderApoderado == true) {
@@ -1772,12 +1771,10 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
         if (tempdate) {
           this.listMovimientos.repreLegal = true;
           this.response = tempdate.response[0];
-          this.openMensajes(this.response.mensaje, this.response.proceso_existoso);
           idRepresentante =  this.Representante_r_id !== 0 ? this.Representante_r_id : tempdate.response[0].c_repre;
 
           if (this.Representante_ineBase64 ===  null && this.Representante_actaBase64 === null && this.Representante_curpBase64 === null) {
             this.operacionRespuesta.EstaEjecutando = false;
-            this.ShowClickPage(this.obtenerEtiqueta());
             return;
           }
 
@@ -1792,6 +1789,7 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
           if (this.Representante_curpBase64 !==  null) {
             this.fileService.cargarArchivo(this.Representante_r_id , this.Representante_curpBase64, 9);
           }
+          this.openMensajes(this.response.mensaje, this.response.proceso_existoso);
           this.ShowClickPage(this.obtenerEtiqueta());
         } else {
           this.openMensajes('No se pudo realizar la acción', true);
@@ -1806,7 +1804,7 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
   }
 
   async editarMovApoderado(InfoUpdate: InsertarTomaNotaApoderadoLegalRequest) {
-   
+
     this.operacionRespuesta.EstaEjecutando = true;
     InfoUpdate.s_id = this.tomanota;
 
