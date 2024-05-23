@@ -76,6 +76,7 @@ export class AuthIdentity {
     }
   }
   public static GetBannerSession(): any {
+    
     const helper = new JwtHelperService();
     const informacionToken = helper.decodeToken(localStorage.getItem("jwt"));
     if (informacionToken != null && informacionToken != undefined) {
@@ -110,6 +111,15 @@ export class AuthIdentity {
           case 10:
             banner += " | " + "Dictaminador de transmisiones";
             break;
+          case 11:
+              banner += " | " + "Asignador de Declaratoria";
+              break;
+          case 12:
+             banner += " | " + "Dictaminador de Declaratoria";
+            break;    
+
+
+
         }
       }
       return banner;
