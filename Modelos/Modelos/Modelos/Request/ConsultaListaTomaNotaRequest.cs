@@ -22,4 +22,21 @@ namespace Modelos.Modelos.Request
         [NotMapped]
         public string column { get; set; }
     }
+
+    public class ConsultaListaTomaNotaByAsignadorRequest
+    {
+        public int id_asignador { get; set; }
+        public string keyword { get; set; }
+        public int c_id { get; set; }
+        public bool c_activo { get; set; }
+        public int? start { get; set; }
+        public int? length { get; set; }
+
+        public string order { get; set; }
+
+        //[NotMapped]
+        //public int tipoOperacion { get; set; }
+        [NotMapped]
+        public string column { get; set; }
+    }
 }

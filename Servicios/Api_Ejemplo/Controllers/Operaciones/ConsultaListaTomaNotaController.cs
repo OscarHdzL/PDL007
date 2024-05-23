@@ -64,8 +64,65 @@ namespace Asuntos_Religiosos_Api.Controllers.Operaciones
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("ListaTomaNotaByAsignador")]
+        public async Task<IActionResult> ListaTomaNotaByAsignador([FromQuery] ConsultaListaTomaNotaByAsignadorRequest entidad, [FromBody] DtParametersrequest dataTablesParameters)
+        {
+            try
+            {
+                var response = await _negocio.Consultar(entidad, dataTablesParameters);
+                if (response.Status == ResponseStatus.Success)
+                {
+                    if (response.Response.Count > 0)
+                    {
+                        return Ok(response);
+                    }
+                    else
+                    {
+                        return Ok(null);
+                    }
+                }
+                else
+                {
+                    return Ok(null);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("ConteoTomaNota")]
         public async Task<IActionResult> ConteoTomaNotaAsync([FromQuery] ConsultaListaTomaNotaRequest entidad)
+        {
+            try
+            {
+                //entidad.tipoOperacion = 10; //Conteo de Tramites
+                var response = await _negocio.Conteo(entidad);
+                if (response.Status == ResponseStatus.Success)
+                {
+                    if (response.Response.Count > 0)
+                    {
+                        return Ok(response);
+                    }
+                    else
+                    {
+                        return NoContent();
+                    }
+                }
+                else
+                {
+                    return BadRequest(response);
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost("ConteoTomaNotaByAsignador")]
+        public async Task<IActionResult> ConteoTomaNotaByAsignador([FromQuery] ConsultaListaTomaNotaByAsignadorRequest entidad)
         {
             try
             {

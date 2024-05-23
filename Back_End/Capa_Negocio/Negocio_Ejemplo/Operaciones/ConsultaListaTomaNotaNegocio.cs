@@ -47,11 +47,45 @@ namespace Negocio.Operaciones
             }
         }
         /// <summary>
+        /// Consultar los datos
+        /// </summary>
+        /// <param name="entidad"></param>
+        /// <returns></returns>
+        public async Task<ResponseGeneric<List<ConsultaListaTomaNotaResponse>>> Consultar(ConsultaListaTomaNotaByAsignadorRequest request, DtParametersrequest parametersrequest)
+        {
+            try
+            {
+                return await _AccesoDatos.Consultar(request, parametersrequest);
+            }
+            catch (Exception ex)
+            {
+                LogErrores("ConsultaListaTomaNotaNegocio - Consultar", ex);
+                throw;
+            }
+        }
+        /// <summary>
         /// Conteo de los datos
         /// </summary>
         /// <param name="entidad"></param>
         /// <returns></returns>
         public async Task<ResponseGeneric<List<ConteoTomaNotaResponse>>> Conteo(ConsultaListaTomaNotaRequest request)
+        {
+            try
+            {
+                return await _AccesoDatos.Conteo(request);
+            }
+            catch (Exception ex)
+            {
+                LogErrores("ConsultaListaTomaNotaNegocio - Consultar", ex);
+                throw;
+            }
+        }
+        /// <summary>
+        /// Conteo de los datos
+        /// </summary>
+        /// <param name="entidad"></param>
+        /// <returns></returns>
+        public async Task<ResponseGeneric<List<ConteoTomaNotaResponse>>> Conteo(ConsultaListaTomaNotaByAsignadorRequest request)
         {
             try
             {

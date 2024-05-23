@@ -48,6 +48,7 @@ namespace Acceso_Datos.Operaciones
             return new List<EntidadParametro>
             {
                new EntidadParametro { Nombre = "id_estatus", Tipo = "Int", Valor = request.id_estatus},
+               new EntidadParametro { Nombre = "id_asignador", Tipo = "Int", Valor = request.id_asignador},
                new EntidadParametro { Nombre = "id_dictaminador", Tipo = "Int", Valor = request.id_dictaminador},
                new EntidadParametro { Nombre = "busqueda", Tipo = "String", Valor = request.busqueda!=null?request.busqueda:null}
 

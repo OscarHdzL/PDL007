@@ -62,11 +62,11 @@ export class ModuloAsignacionTransmisionesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.us_id = AuthIdentity.ObtenerUsuarioRegistro();
     this.initControlForm();
     this.inicializaTabla();
     this.llenarTablaTransmisiones();
     this.obtenerDictaminadores();
-    this.us_id = AuthIdentity.ObtenerUsuarioRegistro();
   }
 
   inicializaTabla() {
@@ -172,7 +172,7 @@ export class ModuloAsignacionTransmisionesComponent implements OnInit {
 
   llenarTablaTransmisiones() {
       this.operacionRespuesta.EstaEjecutando = true;
-      let request = { id_dictaminador:0,id_estatus:29,busqueda:null };
+      let request = { id_dictaminador:0,id_estatus:29,busqueda:null,id_asignador:this.us_id};
       if(this.formFiltros.get('busqueda').value!=null&&this.formFiltros.get('busqueda').value!='') {
         request.busqueda = this.formFiltros.get('busqueda').value;
       }

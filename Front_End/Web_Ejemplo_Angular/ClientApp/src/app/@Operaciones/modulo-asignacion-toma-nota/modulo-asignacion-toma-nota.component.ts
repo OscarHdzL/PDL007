@@ -55,10 +55,10 @@ export class ModuloAsignacionTomaNotaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.us_id = AuthIdentity.ObtenerUsuarioRegistro();
     this.inicializaTabla();
     this.llenarTablaTramites();
     this.obtenerDictaminadores();
-    this.us_id = AuthIdentity.ObtenerUsuarioRegistro();
   }
 
   inicializaTabla() {
@@ -104,7 +104,7 @@ export class ModuloAsignacionTomaNotaComponent implements OnInit {
         .HttpPost(
           dataTablesParameters,
           this.modelo_configuracion.serviciosOperaciones +
-          `/ConsultaListaTomaNota/ConteoTomaNota?c_activo=${true}`
+          `/ConsultaListaTomaNota/ConteoTomaNotaByAsignador?id_asignador=${this.us_id}&c_activo=${true}`
         )
         .subscribe(
           async (count) => {
@@ -114,7 +114,7 @@ export class ModuloAsignacionTomaNotaComponent implements OnInit {
                 .HttpPost(
                   dataTablesParameters,
                   this.modelo_configuracion.serviciosOperaciones +
-                  `/ConsultaListaTomaNota/ListaTomaNota?c_activo=${true}`
+                  `/ConsultaListaTomaNota/ListaTomaNotaByAsignador?id_asignador=${this.us_id}&c_activo=${true}`
                 )
                 .subscribe(async (tempdate) => {
                   if (tempdate) {

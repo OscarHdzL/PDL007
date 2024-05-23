@@ -14,6 +14,7 @@ namespace Modelos.Modelos.Request
 
     public class ConsultaEstatusTransmisionFiltradoRequest
     {
+        public int? id_asignador { get; set; }
         public int? id_estatus { get; set; }
         public int? id_dictaminador { get; set; }
         public string busqueda { get; set; }
