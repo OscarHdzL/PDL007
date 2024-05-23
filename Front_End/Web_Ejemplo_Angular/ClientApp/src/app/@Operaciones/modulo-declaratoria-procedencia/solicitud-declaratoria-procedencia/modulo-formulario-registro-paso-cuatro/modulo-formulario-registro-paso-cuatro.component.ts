@@ -217,7 +217,7 @@ export class ModuloFormularioRegistroPasoCuatroComponent extends GeneralComponen
       suroEsteCh: [null],
       urlMapa: [null, { validators: [Validators.required] }],
       imagenMapa: [null],
-      fechaInicioActividades: [null, { validators: [Validators.required] }],
+      fechaInicioActividades: [null],
       usoPretendeDestinar: [null, { validators: [Validators.required] }],
       otro: [null],
     });
@@ -599,7 +599,7 @@ export class ModuloFormularioRegistroPasoCuatroComponent extends GeneralComponen
         this.formGroupRegular.controls["fechaInicioActividades"].clearValidators();
         this.formGroupRegular.controls["fechaInicioActividades"].disable();
       } else {
-        this.formGroupRegular.controls["fechaInicioActividades"].setValidators(Validators.required);
+        //this.formGroupRegular.controls["fechaInicioActividades"].setValidators(Validators.required);
         this.formGroupRegular.controls["fechaInicioActividades"].enable();
       }
     } else {
