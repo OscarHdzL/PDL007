@@ -168,11 +168,13 @@
                 </button>
 
                 <button class="bootstrap-icons espacio-derecho-tabla" title="Editar" type="button"
-                  (click)="mandarModificacion(catalogo)">
+                [disabled]="!(catalogo.id_estatus == 39 || catalogo.id_estatus == 42)"  
+                (click)="mandarModificacion(catalogo)">
                   <i class="ti-pencil"></i>
                 </button>
 
                 <button class="bootstrap-icons  icono-grande" title="Eliminar" type="button"
+                  [disabled]="!(catalogo.id_estatus == 39)"
                   (click)="openEliminar(catalogo.id_declaratoria)">
                   <i class="ti-trash"></i>
                 </button>

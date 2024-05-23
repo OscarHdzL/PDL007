@@ -147,6 +147,7 @@ export class ModuloVistaPrincipalComponent extends GeneralComponent implements O
         let requestBusqueda = { id_rol:0,id_usuario:0,denominacion:null,folio:null,estatus:null }
         if(perfil==11||perfil==12) {
             requestBusqueda.id_rol = perfil;
+            requestBusqueda.id_usuario = this.us_id;
         } else {
             requestBusqueda.id_usuario = this.us_id;
         }
