@@ -56,10 +56,10 @@ export class ModuloAsignacionRegistroComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.us_id = AuthIdentity.ObtenerUsuarioRegistro();
     this.inicializaTabla();
     this.llenarTablaTramites();
-    this.obtenerDictaminadores();
-    this.us_id = AuthIdentity.ObtenerUsuarioRegistro();
+    this.obtenerDictaminadores();  
   }
 
   inicializaTabla() {
@@ -112,7 +112,7 @@ export class ModuloAsignacionRegistroComponent implements OnInit {
     this.services
       .HttpGet(
         this.modelo_configuracion.serviciosOperaciones +
-        "/ConsultaListaTramites/ListaTramites?Activos=true"
+        "/ConsultaListaTramites/ListaTramitesByAsignador?id_asignador=" + this.us_id
       )
       .subscribe(
         (tempdate) => {

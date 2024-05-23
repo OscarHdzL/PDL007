@@ -33,6 +33,13 @@ namespace Acceso_Datos.Operaciones
                 new EntidadParametro { Nombre = "c_activo", Tipo = "Boolean", Valor = request.Activos },
             };
         }
+        private List<EntidadParametro> ObtenerParametrosDT(ConsultaListaTramitesByAsignadorRequest request)
+        {
+            return new List<EntidadParametro>
+            {
+                new EntidadParametro { Nombre = "id_asignador", Tipo = "Int", Valor = request.id_asignador },
+            };
+        }
         private List<EntidadParametro> ObtenerParametrosConteo(ConsultaListaTramitesRequest request)
         {
             return new List<EntidadParametro>
@@ -51,6 +58,40 @@ namespace Acceso_Datos.Operaciones
         /// <param name="request">Objeto de tranporte de la solicitud</param>
         /// <returns></returns>
         public async Task<ResponseGeneric<List<ConsultaListaTramitesResponse>>> Consultar(ConsultaListaTramitesAsignadorRequest request)
+        {
+            List<ConsultaListaTramitesResponse> respuesta = new List<ConsultaListaTramitesResponse>();
+            try
+            {
+                using (var conexion = new Contexto())
+                {
+                    switch (int.Parse(Configuration["TipoBase"].ToString()))
+                    {
+                        case 1:
+                            var resulMySQL = StoreProcedureParametros.ParametrosMySQL(ObtenerParametrosDT(request), sp_consulta_lista_colonias);
+                            respuesta = await conexion.ConsultaListaTramitesResponse.FromSqlRaw(resulMySQL.Query, resulMySQL.ListaParametros.ToArray()).ToListAsync();
+                            break;
+
+                        case 2:
+                            var resulPostgreSQL = StoreProcedureParametros.ParametrosPostgreSQL(ObtenerParametrosDT(request), sp_consulta_lista_colonias, tipo: "SELECT * FROM");
+                            respuesta = await conexion.ConsultaListaTramitesResponse.FromSqlRaw(resulPostgreSQL.Query, resulPostgreSQL.ListaParametros.ToArray()).ToListAsync();
+                            break;
+                    }
+                }
+
+                return new ResponseGeneric<List<ConsultaListaTramitesResponse>>(respuesta);
+            }
+            catch (Exception ex)
+            {
+                LogErrores("ConsultaListaColoniaAccesoDatos", ex);
+                throw;
+            }
+        }
+        /// <summary>
+        /// Método encargado 
+        /// </summary>
+        /// <param name="request">Objeto de tranporte de la solicitud</param>
+        /// <returns></returns>
+        public async Task<ResponseGeneric<List<ConsultaListaTramitesResponse>>> Consultar(ConsultaListaTramitesByAsignadorRequest request)
         {
             List<ConsultaListaTramitesResponse> respuesta = new List<ConsultaListaTramitesResponse>();
             try

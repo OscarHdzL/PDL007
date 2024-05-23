@@ -48,6 +48,23 @@ namespace Negocio.Catalogos
             }
         }
         /// <summary>
+        /// Consultar los datos
+        /// </summary>
+        /// <param name="entidad"></param>
+        /// <returns></returns>
+        public async Task<ResponseGeneric<List<ConsultaListaTramitesResponse>>> Consultar(ConsultaListaTramitesByAsignadorRequest request)
+        {
+            try
+            {
+                return await _AccesoDatos.Consultar(request);
+            }
+            catch (Exception ex)
+            {
+                LogErrores("ConsultaListaConvoactoriasNegocio - Consultar", ex);
+                throw;
+            }
+        }
+        /// <summary>
         /// Conteo de los datos
         /// </summary>
         /// <param name="entidad"></param>

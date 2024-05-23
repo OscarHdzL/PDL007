@@ -28,4 +28,9 @@ namespace Modelos.Modelos.Request
     {
         public bool? Activos { get; set; }
     }
+
+    public class ConsultaListaTramitesByAsignadorRequest
+    {
+        public int id_asignador { get; set; }
+    }
 }

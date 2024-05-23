@@ -65,37 +65,67 @@ namespace Religiosos_Api.Controllers.Operaciones
                 return BadRequest(new ResponseGeneric<string>(ex.Message));
             }
         }
-       /*
-        [HttpPost("ListaTramites")]
-        public async Task<IActionResult> ListaTramitesAsync([FromQuery] ConsultaListaTramitesRequest entidad, [FromBody] DtParametersrequest dataTablesParameters)
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> ListaTramitesByAsignador([FromQuery] ConsultaListaTramitesByAsignadorRequest request)
         {
             try
             {
 
-                var response = await _negocio.Consultar(entidad,dataTablesParameters);
-                if (response.Status == ResponseStatus.Success)
+                var result = await _negocio.Consultar(request);
+                if (result.Status == ResponseStatus.Success)
                 {
-                    if (response.Response.Count > 0)
+                    if (result.Response.Count > 0)
                     {
-                        return Ok(response);
+                        return Ok(result);
                     }
                     else
                     {
-                        return Ok(null);
+                        return NoContent();
                     }
                 }
                 else
                 {
-                    return Ok(null);
+                    return NoContent();
                 }
             }
             catch (Exception ex)
             {
-
-                return BadRequest(ex.Message);
+                log.LogError("ConsultaListaTramitesController - Get", ex);
+                return BadRequest(new ResponseGeneric<string>(ex.Message));
             }
         }
-        */
+        /*
+         [HttpPost("ListaTramites")]
+         public async Task<IActionResult> ListaTramitesAsync([FromQuery] ConsultaListaTramitesRequest entidad, [FromBody] DtParametersrequest dataTablesParameters)
+         {
+             try
+             {
+
+                 var response = await _negocio.Consultar(entidad,dataTablesParameters);
+                 if (response.Status == ResponseStatus.Success)
+                 {
+                     if (response.Response.Count > 0)
+                     {
+                         return Ok(response);
+                     }
+                     else
+                     {
+                         return Ok(null);
+                     }
+                 }
+                 else
+                 {
+                     return Ok(null);
+                 }
+             }
+             catch (Exception ex)
+             {
+
+                 return BadRequest(ex.Message);
+             }
+         }
+         */
         [HttpPost("ConteoTramites")]
         public async Task<IActionResult> ConteoTramitesAsync([FromQuery] ConsultaListaTramitesRequest entidad)
         {

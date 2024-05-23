@@ -38,7 +38,7 @@
                     <td>{{ registro.reg_estatus }}</td>
                     <td>{{ registro.correo_dic }}</td>
                     <td class="text-left">
-                          <select *ngIf="registro.reg_estatus.toLowerCase() == 'en espera' || registro.reg_estatus.toLowerCase() == 'información registro cumple' || registro.reg_estatus.toLowerCase() == 'información registro no cumple'"
+                          <select
                             class="form-control"
                             (change)="onChange($event.target.value,registro.reg_id)"
                           >
