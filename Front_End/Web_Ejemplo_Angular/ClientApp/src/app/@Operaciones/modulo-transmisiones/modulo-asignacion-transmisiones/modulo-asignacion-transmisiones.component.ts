@@ -81,8 +81,8 @@ export class ModuloAsignacionTransmisionesComponent implements OnInit {
       ],
     } as DataTables.Settings;
     this.dtTrigger = new Subject();
-    this.dtOptions.search = false;
-    this.dtOptions.searching = false;
+    //this.dtOptions.search = false;
+    //this.dtOptions.searching = false;
 
   }
   private initControlForm(): void {
