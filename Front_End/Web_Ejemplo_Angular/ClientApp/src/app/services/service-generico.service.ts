@@ -73,6 +73,7 @@ export class ServiceGenerico {
           ,'Access-Control-Allow-Methods':'*'
           ,'Access-Control-Allow-Origin':'*'
           ,'Access-Control-Allow-Credentials':'true'
+          ,'Authorization': 'Bearer ' + localStorage.getItem('jwt')
         }),
       })
       .pipe(

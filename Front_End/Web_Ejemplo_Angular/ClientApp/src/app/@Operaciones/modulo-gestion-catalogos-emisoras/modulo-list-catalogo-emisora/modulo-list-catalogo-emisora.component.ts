@@ -31,7 +31,7 @@ import { ModuloFormularioEdicionEmisoraComponent } from '../modulo-formulario-ed
 })
 
 export class ModuloListCatalogoEmisoraComponent implements OnInit{
-  
+
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   @ViewChild(DataTableDirective, { static: false })
@@ -118,7 +118,7 @@ export class ModuloListCatalogoEmisoraComponent implements OnInit{
       ModuloModalMensajeComponent,
       { ariaLabelledBy: "modal-basic-title", }
     );
-    
+
     this.modalrefMsg.componentInstance.mensajesExito = this.mensajesExito;
     this.modalrefMsg.componentInstance.mensajesError = this.mensajesError;
     this.modalrefMsg.componentInstance.showErrors = this.showErrors;
