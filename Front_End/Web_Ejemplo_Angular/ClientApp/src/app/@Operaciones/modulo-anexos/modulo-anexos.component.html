@@ -9,7 +9,7 @@
 <input style="display: none" id="ArchivoModal" name="ArchivoModal" type="file" multiple="multiple" (change)="agregarArchivo($event)" />
 
 <div class="col-md-12 mt-5">
-    <table class="table table-striped" *ngIf="listaAnexos.length > 0">
+    <table id="listaAnexos" class="table table-striped" *ngIf="listaAnexos.length > 0">
         <thead>
             <tr>
                 <th>Nombre</th>

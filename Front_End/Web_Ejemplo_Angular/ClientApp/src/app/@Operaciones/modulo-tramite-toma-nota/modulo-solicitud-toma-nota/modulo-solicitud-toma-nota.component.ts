@@ -1088,6 +1088,7 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
             this.response =
               tempdate.response[0] as ConsultaDetalleTomaNotaResponse;
             if (this.response) {
+              debugger
               const modelRequest = new EditarDetalleTomaNotaRequest();
               this.altaapoderadodoc = this.response.c_alta_apoderado_doc;
               this.bajaapoderadodoc = this.response.c_baja_apoderado_doc;
@@ -1526,7 +1527,10 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
     //await this.consultarAnexosApoderado(this.tomanota);   // Consulta documento escritura pública
     await this.obtenerDataPrincipalApoderado();           // consulta documentos poder
     //if (this.doctosCompletosApoderado == true && this.formGroupApoderado != undefined && this.doctosPoderApoderado == true) {
-    if (this.formGroupApoderado != undefined && this.doctosPoderApoderado == true) {
+   
+      let elementExists = document.getElementById("listaAnexos");
+ 
+    if (this.formGroupApoderado != undefined && this.doctosPoderApoderado == true && elementExists !=null) {
       if (this.formGroupApoderado.value.c_id_tipo_movimiento == 1) {
         this.editarMovApoderado(this.formGroupApoderado.value);
       } else if (this.formGroupApoderado.value.c_id_tipo_movimiento == 2) {
@@ -3043,10 +3047,19 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
   }
 
   guardarEscritura(file: any) {
+  
     for (let i = 0; i < file.length; i++ ) {
       if (file[i].base64 === undefined) {
         this.listArchivosDelete.push(file[i]);
       } else {
+        //this.listaArchivosEscritura=[];
+        if(i==0)
+         {
+          if(this.listaArchivosEscritura.length>0)
+            {
+              this.listaArchivosEscritura=[];
+            }
+         }
         this.listaArchivosEscritura.push(file[i]);
       }
     }
@@ -3075,6 +3088,7 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
 
   public guardarArchivosEscritura() {
     let i: number;
+  
     for (i = 0; i < this.listaArchivosEscritura.length; i++) {
       const formData: any = new FormData();
       formData.append('id_asunto', this.listaArchivosEscritura[i].id_asunto);
