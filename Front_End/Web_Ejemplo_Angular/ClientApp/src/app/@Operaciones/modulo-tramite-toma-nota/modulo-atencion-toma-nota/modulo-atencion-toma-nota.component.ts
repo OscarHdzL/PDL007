@@ -220,6 +220,9 @@ export class ModuloAtencionTomaNotaComponent implements OnInit{
       ],
       c_id_tsol_escrito: [
         ""
+      ],
+      comentario_tnota: [
+        ""
       ]
     });
   }
@@ -931,6 +934,7 @@ export class ModuloAtencionTomaNotaComponent implements OnInit{
               modelRequest.c_id_tsol_escrito = this.response.c_id_tsol_escrito;
               modelRequest.c_denominacion = this.response.c_denominacion;
               modelRequest.c_numero_sgar = this.response.c_numero_sgar;
+              modelRequest.comentario_tnota = this.response.c_comentario_tnota;
               this.tomanota = this.response.c_toma_nota;
               this.tomantram = this.response.c_trtn;
               this.escritosolicitud = this.response.c_existe_escrito_solicitud;

@@ -1489,9 +1489,9 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
   async OnSubmitDenominacion() {
 
     if(this.certificadoregistro == false || this.estatutosnuevasolicitud == false){
-      if (this.certificadoregistroBase64 ===  null && this.estatutosnuevasolicitudBase64 === null) {
+      if (this.certificadoregistroBase64 ===  null || this.estatutosnuevasolicitudBase64 === null) {
         this.operacionRespuesta.EstaEjecutando = false;
-        this.openMensajes('Favor de cargar la documentación de cambio de denominación p.', true);
+        this.openMensajes('Favor de cargar la documentación de cambio de denominación.', true);
         return;
       }
     }
