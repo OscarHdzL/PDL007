@@ -407,16 +407,16 @@
                 Debe seleccionar al menos un rol.
               </div> -->
             </div>
-            <div *ngIf="t_organo_gob == true">
-            <div class="form-group col-md-6" [hidden]="hideparam">
-              <label class="control-label" for="c_organo_g">Órgano de Gobierno:</label>
-              <input class="form-control" type="text" formControlName="c_organo_g" name="c_organo_g" readonly/>
+            <div *ngIf="existeOG">
+              <div class="form-group col-md-6">
+                <label class="control-label" for="c_organo_g">Órgano de Gobierno:</label>
+                <input class="form-control" type="text" formControlName="c_organo_g" name="c_organo_g" readonly/>
+              </div>
+              <div class="form-group col-md-6">
+                <label class="control-label" for="p_cargo">Cargo Gobierno:</label>
+                <input class="form-control" type="text" formControlName="p_cargo" name="p_cargo" readonly/>
+              </div>
             </div>
-            <div class="form-group col-md-6" [hidden]="hideparam">
-              <label class="control-label" for="p_cargo">Cargo Gobierno:</label>
-              <input class="form-control" type="text" formControlName="p_cargo" name="p_cargo" readonly/>
-            </div>
-          </div>
 
             <div class="form-group col-md-4">
               <label class="control-label requerido labelencabezado" for="s_cat__escrito_solicitud_tn">Identificación (INE):</label>

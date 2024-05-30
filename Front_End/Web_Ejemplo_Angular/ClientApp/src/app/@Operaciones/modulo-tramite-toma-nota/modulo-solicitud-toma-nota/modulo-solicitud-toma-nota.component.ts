@@ -1353,7 +1353,9 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
               this.Representante_p_curp_exists = this.response.p_curp_exists;
               this.registroCompletosRepresentante = true;
               if (this.Representante_p_acta_exists == false || this.Representante_p_ine_exists == false || this.Representante_p_curp_exists == false) {
-                if (this.Representante_ineBase64 === null && this.Representante_actaBase64 === null && this.Representante_curpBase64 === null){
+                if ((!this.Representante_p_ine_exists && this.Representante_ineBase64 === null) ||
+                    (!this.Representante_p_acta_exists && this.Representante_actaBase64 === null) ||
+                    (!this.Representante_p_curp_exists && this.Representante_curpBase64 === null)){
                   this.doctosCompletosRepresentante = false;
                 } else {
                   this.doctosCompletosRepresentante = true;
@@ -1507,6 +1509,7 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
   async OnSubmitRepresentanteLegal() {
 
     await this.obtenerRepresentanteLegalValida();
+    await this.validarExistenciaArchivosRL();
 
     if (this.invalidrol == false) {
       if (this.doctosCompletosRepresentante == true && this.invalidrol == false) {
@@ -1515,13 +1518,20 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
         this.txtTituloBoton = 'Guardar';
       } else {
         this.openMensajes('Favor de cargar la documentación de cambio de representante.', true);
+        return;
       }
 
     } else {
       this.openMensajes('Favor de seleccionar un rol', true);
     }
-
   }
+
+  validarExistenciaArchivosRL() {
+    this.Representante_p_ine_exists = this.Representante_ineBase64 !== null;
+    this.Representante_p_acta_exists = this.Representante_actaBase64 !== null;
+    this.Representante_p_curp_exists = this.Representante_curpBase64 !== null;
+  }
+
   async OnSubmitApoderado() {
     //await this.consultarAnexosApoderado(this.tomanota);   // Consulta documento escritura pública
     await this.obtenerDataPrincipalApoderado();           // consulta documentos poder
@@ -1774,7 +1784,7 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
           this.response = tempdate.response[0];
           idRepresentante =  this.Representante_r_id !== 0 ? this.Representante_r_id : tempdate.response[0].c_repre;
 
-          if (this.Representante_ineBase64 ===  null && this.Representante_actaBase64 === null && this.Representante_curpBase64 === null) {
+          if (this.Representante_ineBase64 === null && this.Representante_actaBase64 === null && this.Representante_curpBase64 === null) {
             if (this.idTramite_aux !== 0) {
               this.openMensajes(this.response.mensaje, this.response.proceso_existoso);
               this.ShowClickPage(this.obtenerEtiqueta());

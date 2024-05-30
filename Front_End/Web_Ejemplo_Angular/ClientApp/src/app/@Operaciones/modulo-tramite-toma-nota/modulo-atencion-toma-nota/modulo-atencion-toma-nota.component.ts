@@ -166,7 +166,7 @@ export class ModuloAtencionTomaNotaComponent implements OnInit{
   //#endregion
 
   isDictaminador: boolean;
-
+  existeOG = false;
   /** modulo-solicitud-toma-nota ctor */
   constructor(private services: ServiceGenerico,
               private _route: ActivatedRoute,
@@ -1082,7 +1082,8 @@ export class ModuloAtencionTomaNotaComponent implements OnInit{
               modelRequest.t_rep_legal = this.response.t_rep_legal;
               modelRequest.t_rep_asociado = this.response.t_rep_asociado;
               modelRequest.t_ministro_culto = this.response.t_ministro_culto;
-              modelRequest.t_organo_gob = this.response.t_organo_gob;
+              modelRequest.t_organo_gob = this.response.t_organo_gob
+              this.existeOG = this.response.t_organo_gob;
               modelRequest.p_cargo = this.response.p_cargo;
               modelRequest.c_organo_g = this.response.c_organo_g;
               this.Representante_r_id = this.response.r_id;
