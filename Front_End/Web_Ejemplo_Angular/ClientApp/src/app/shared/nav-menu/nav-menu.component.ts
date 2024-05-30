@@ -33,14 +33,15 @@ export class NavMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.ListModulos =
-      this.localStorageService.getJsonValue("ListaMenuAgrupado");
+    this.localStorageService.getJsonValue("ListaMenuAgrupado");
     this.isAuth = this.auth.canActivate();
     this.authService.estatusActualDelUsuarioEnSesion$().subscribe((isAuth) => {
       this.isAuth = isAuth;
+      this.setupidleSession();
     });
     this.authService.refrescarMenuPermisos$().subscribe((modules) => {
       this.ListModulos = modules;
-     
+
       this.banner =AuthIdentity.GetBannerSession();
     });
     this.setupidleSession();
@@ -70,8 +71,17 @@ export class NavMenuComponent implements OnInit {
 
   setupidleSession() {
     //configuración para el tiempo de inactividad  // 600 10 minutos - 1800 30 min
-    this.userIdle.stopWatching();
-    this.userIdle.setConfigValues({ idle: 1800, timeout: 1 });
-    this.userIdle.startWatching();
+    if (this.isAuth) {
+      this.userIdle.stopWatching();
+      this.userIdle.setConfigValues({ idle: 300, timeout: 1 });
+      this.userIdle.startWatching();
+      this.userIdle.onTimerStart().subscribe(count => {});
+      this.userIdle.onTimeout().subscribe(() => this.accionPorinactividad());
+    }
+  }
+
+  accionPorinactividad() {
+    this.isAuth ? this.cerrarSesion() : null;
+    this.userIdle.resetTimer();
   }
 }
