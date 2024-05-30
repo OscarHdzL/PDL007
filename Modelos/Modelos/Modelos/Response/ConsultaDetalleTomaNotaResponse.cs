@@ -25,6 +25,7 @@ namespace Modelos.Modelos.Response
         public string c_coment_est { get; set; }
         public string c_n_denom { get; set; }
         public string c_coment_n_denom { get; set; }
+        public string c_comentario_tnota { get; set; }
         public int c_trtn { get; set; }
         public int? c_us { get; set; }
         public int? status { get; set; }

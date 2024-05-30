@@ -69,6 +69,13 @@
           </select>
         </div>
       </div>
+
+      <div class="row">
+        <div class="form-group col-md-12" *ngIf="listaAnexos.length > 0">
+          <label class="control-label requerido" for="comentario_tnota">Comentarios:</label>
+          <input class="form-control" type="text" name="comentario_tnota" formControlName="comentario_tnota" readonly />
+        </div>
+      </div>
     </form>
     <div class="row">
       <div class="form-group col-md-12">
