@@ -17,7 +17,7 @@ namespace Modelos.Modelos.Response
     public class ConsultaActosMediosTrasmisionResponse
     {
         public int i_id_emisora { get; set; }
-        public int i_id_acto { get; set; }
+        public int? i_id_acto { get; set; }
         public string frecuencia_canal { get; set; }
         public string proveedor { get; set; }
         public string televisora_radiodifusora { get; set; }
