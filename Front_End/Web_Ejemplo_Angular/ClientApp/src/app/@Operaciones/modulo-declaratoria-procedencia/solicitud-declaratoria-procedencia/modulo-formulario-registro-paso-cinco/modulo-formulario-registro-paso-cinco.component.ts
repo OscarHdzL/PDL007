@@ -40,9 +40,11 @@ export class ModuloFormularioRegistroPasoCincoComponent extends GeneralComponent
     concluirGroup: FormGroup;
     autorizarGroup: FormGroup;
     lstHorarios = [
-        { i_id: 1, c_horario: '10:00 am - 11:00 am' },
-        { i_id: 2, c_horario: '11:00 am - 12:00 pm' },
-        { i_id: 3, c_horario: '12:00 pm - 13:00 pm' }
+        { i_id: 4, c_horario: '09:00 am - 10:00 am', orden: 1 },
+        { i_id: 1, c_horario: '10:00 am - 11:00 am', orden: 2 },
+        { i_id: 2, c_horario: '11:00 am - 12:00 pm', orden: 3 },
+        { i_id: 3, c_horario: '12:00 pm - 13:00 pm', orden: 4 },
+        { i_id: 5, c_horario: '13:00 pm - 14:00 pm', orden: 5 }
     ];
     @ViewChild("contentObservar", { static: false }) modalObservar: TemplateRef<any>;
     @ViewChild("contentConcluir", { static: false }) modalConcluir: TemplateRef<any>;
@@ -128,6 +130,8 @@ export class ModuloFormularioRegistroPasoCincoComponent extends GeneralComponent
         if (this.paso5) {
             await this.setearValores()
         }
+
+        this.lstHorarios = this.lstHorarios.sort((a, b) => a.orden - b.orden);
     }
 
     public async salir() {
