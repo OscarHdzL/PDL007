@@ -1507,6 +1507,29 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
     }
   }
 
+  async OnSubmitRepresentanteLegal2(){
+    debugger
+    
+        await this.obtenerRepresentanteLegalValida();
+        await this.validarExistenciaArchivosRL();
+    
+        if (this.invalidrol == false) {
+          if (this.doctosCompletosRepresentante == true && this.invalidrol == false) {
+    
+            this.editarMovRepresentanteLegal(this.formGroupRepresentante.value);
+            console.log('apreto subir documentos2')
+            this.txtTituloBoton = 'Guardar';
+          } else {
+            this.openMensajes('Favor de cargar la documentación de cambio de representante.', true);
+            return;
+          }
+    
+        } else {
+          this.openMensajes('Favor de seleccionar un rol', true);
+        }
+    
+      }
+
   async OnSubmitRepresentanteLegal() {
 
     await this.obtenerRepresentanteLegalValida();
@@ -1515,7 +1538,7 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
     if (this.invalidrol == false) {
       if (this.doctosCompletosRepresentante == true && this.invalidrol == false) {
 
-        this.editarMovRepresentanteLegal(this.formGroupRepresentante.value);
+        this.editarMovRepresentanteLegalSub(this.formGroupRepresentante.value);
         this.txtTituloBoton = 'Guardar';
       } else {
         this.openMensajes('Favor de cargar la documentación de cambio de representante.', true);
@@ -1810,6 +1833,46 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
           }
           this.openMensajes(this.response.mensaje, this.response.proceso_existoso);
           this.ShowClickPage(this.obtenerEtiqueta());
+        } else {
+          this.openMensajes('No se pudo realizar la acción', true);
+        }
+        this.operacionRespuesta.EstaEjecutando = false;
+      })
+      .catch(err => {
+        this.openMensajes('No se pudo realizar la acción', true);
+        this.operacionRespuesta.EstaEjecutando = false;
+      });
+    await this.obtenerRepresentanteLegalOrgano();
+  }
+
+  async editarMovRepresentanteLegalSub(InfoUpdate: ActualizarRepresentateLegalTN_Request) {
+    let idRepresentante;
+    this.operacionRespuesta.EstaEjecutando = true;
+    InfoUpdate.s_id = this.tomanota;
+    await this.services
+      .HttpPost(
+        InfoUpdate,
+        this.modelo_configuracion.serviciosOperaciones +
+        '/InsertarTomaNotaRepresentanteLegal/Post'
+      )
+      .toPromise()
+      .then(tempdate => {
+        if (tempdate) {
+         
+          this.listMovimientos.repreLegal = true;
+          this.response = tempdate.response[0];
+          idRepresentante =  this.Representante_r_id !== 0 ? this.Representante_r_id : tempdate.response[0].c_repre;
+
+          if (this.Representante_ineBase64 === null && this.Representante_actaBase64 === null && this.Representante_curpBase64 === null) {
+            /* if (this.idTramite_aux !== 0) {
+              this.openMensajes(this.response.mensaje, this.response.proceso_existoso);
+              this.ShowClickPage(this.obtenerEtiqueta());
+            } */
+            this.operacionRespuesta.EstaEjecutando = false;
+            return;
+          }
+
+          
         } else {
           this.openMensajes('No se pudo realizar la acción', true);
         }

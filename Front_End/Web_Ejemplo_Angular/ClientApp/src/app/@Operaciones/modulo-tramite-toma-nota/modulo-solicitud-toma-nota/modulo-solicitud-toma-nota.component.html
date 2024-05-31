@@ -580,8 +580,18 @@
 
         </div>
         <div class="row">
-          <div class="col-md-6">
-            <button type="button" class="btn btn-primary btnbtns" (click)="OnSubmitRepresentanteLegal()" *ngIf="!esVistaPrevia"
+          <div class="col-md-6" *ngIf="this.txtTituloBoton == 'Guardar'">
+            <button  type="button" class="btn btn-primary btnbtns" (click)="OnSubmitRepresentanteLegal2()" *ngIf="!esVistaPrevia"
+              [disabled]="this.formGroupRepresentante.invalid || bloqueoTN">
+              {{ this.txtTituloBoton }}
+            </button>
+            <button type="button" class="btn btn-secondary btnbtns" (click)="retornarInicio()">
+              Salir
+            </button>
+
+          </div>
+          <div class="col-md-6" *ngIf="this.txtTituloBoton == 'Subir documentos'">
+            <button  type="button" class="btn btn-primary btnbtns" (click)="OnSubmitRepresentanteLegal()" *ngIf="!esVistaPrevia"
               [disabled]="this.formGroupRepresentante.invalid || bloqueoTN">
               {{ this.txtTituloBoton }}
             </button>
