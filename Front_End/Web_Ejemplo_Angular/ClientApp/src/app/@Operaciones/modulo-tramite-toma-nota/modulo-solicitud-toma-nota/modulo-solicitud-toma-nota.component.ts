@@ -2088,7 +2088,7 @@ export class ModuloSolicitudTomaNotaComponent implements OnInit {
 
     params.b_estatutos = this.listMovimientos.estatutos;
     params.b_denominacion = this.listMovimientos.denominacion;
-    params.b_miembros = this.listMovimientos.listAsociados;
+    params.b_miembros = false;//this.listMovimientos.listAsociados;
     params.b_representante = this.listMovimientos.repreLegal;
     params.b_apoderado = this.listMovimientos.apodLegal;
     params.b_dom_legal = this.listMovimientos.domicilioLegal;

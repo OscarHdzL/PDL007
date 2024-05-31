@@ -197,6 +197,7 @@ export class ConsultaListaMovimientosTNotaResponse{
   s_cat_mov: number;
   s_cat_tnota: number;
   s_movimiento: string;
+  s_activo: boolean;
 }
 
 export class archivosAnexo {

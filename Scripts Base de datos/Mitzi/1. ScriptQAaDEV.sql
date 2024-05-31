@@ -79,3 +79,18 @@ ALTER TABLE IF EXISTS religiosos."TBL_Observaciones_Transmision"
 ALTER TABLE IF EXISTS religiosos."ASOC_DeclaratoriaDictaminador"
     ADD COLUMN b_read boolean;
 	
+	
+ALTER TABLE religiosos."CAT_TNotaMovimientos"
+    ALTER COLUMN nombre TYPE character varying(100) COLLATE pg_catalog."default";
+	
+UPDATE religiosos."CAT_TNotaMovimientos" SET nombre = 'Modificación de estatutos'
+where i_id = 1 AND nombre = 'Movimientos en estatutos';
+
+UPDATE religiosos."CAT_TNotaMovimientos" SET nombre = 'Cambio de denominación'
+where i_id = 2 AND nombre = 'Movimientos en denominación';
+
+UPDATE religiosos."CAT_TNotaMovimientos" SET nombre = 'Relación de representantes Legales/ Asociados/ Ministros de culto/ Órgano de Gobierno'
+where i_id = 4 AND nombre = 'Movimientos del representante legal';
+
+UPDATE religiosos."CAT_TNotaMovimientos" SET b_activo = false
+where i_id = 3;

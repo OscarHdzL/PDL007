@@ -12,17 +12,17 @@ using System.Threading.Tasks;
 
 namespace Acceso_Datos.Operaciones
 {
-    public class ConsultaDetalleMovimientosTomaNotaAccesoDatos : BaseAccesoDatos
+    public class ConsultaCatalogoMovimientosTomaNotaAccesoDatos : BaseAccesoDatos
     {
         #region SP_Operaciones
-        private const string sp_consulta_lista_convocatorias = "religiosos.sp_consulta_detalle_movimientos_toma_nota_new";
+        private const string sp_consulta_catalogo_movimientos_toma_nota = "religiosos.sp_consulta_catalogo_movimientos_toma_nota";
         #endregion
 
         #region Contructor
         /// <summary>
         /// Constructor Inicial para el acceso de datos
         /// </summary>
-        public ConsultaDetalleMovimientosTomaNotaAccesoDatos()
+        public ConsultaCatalogoMovimientosTomaNotaAccesoDatos()
             : base() { }
         #endregion
 
@@ -32,11 +32,11 @@ namespace Acceso_Datos.Operaciones
         /// </summary>
         /// <param name="entidad">Entidades del request</param>
         /// <returns></returns>
-        private List<EntidadParametro> ObtenerParametros(ConsultaDetalleTomaNotaRequest request)
+        private List<EntidadParametro> ObtenerParametros(bool p_activos)
         {
             return new List<EntidadParametro>
             {
-               new EntidadParametro { Nombre = "i_id_c", Tipo = "Int", Valor = request.i_id_c},
+               new EntidadParametro { Nombre = "p_activos", Tipo = "Boolean", Valor = p_activos},
             };
         }
         #endregion
@@ -47,9 +47,9 @@ namespace Acceso_Datos.Operaciones
         /// </summary>
         /// <param name="request">Objeto de tranporte de la solicitud</param>
         /// <returns></returns>
-        public async Task<ResponseGeneric<List<ConsultaDetalleMovimientosTomaNotaResponse>>> Consultar(ConsultaDetalleTomaNotaRequest request)
+        public async Task<ResponseGeneric<List<ConsultaCatalogoMovimientosTomaNotaResponse>>> Consultar(bool p_activos)
         {
-            List<ConsultaDetalleMovimientosTomaNotaResponse> respuesta = new List<ConsultaDetalleMovimientosTomaNotaResponse>();
+            List<ConsultaCatalogoMovimientosTomaNotaResponse> respuesta = new List<ConsultaCatalogoMovimientosTomaNotaResponse>();
             try
             {
                 using (var conexion = new Contexto())
@@ -57,22 +57,22 @@ namespace Acceso_Datos.Operaciones
                     switch (int.Parse(Configuration["TipoBase"].ToString()))
                     {
                         case 1:
-                            var resulMySQL = StoreProcedureParametros.ParametrosMySQL(ObtenerParametros(request), sp_consulta_lista_convocatorias);
-                            respuesta = await conexion.ConsultaDetalleMovimientosTomaNotaResponse.FromSqlRaw(resulMySQL.Query, resulMySQL.ListaParametros.ToArray()).ToListAsync();
+                            var resulMySQL = StoreProcedureParametros.ParametrosMySQL(ObtenerParametros(p_activos), sp_consulta_catalogo_movimientos_toma_nota);
+                            respuesta = await conexion.ConsultaCatalogoMovimientosTomaNotaResponse.FromSqlRaw(resulMySQL.Query, resulMySQL.ListaParametros.ToArray()).ToListAsync();
                             break;
 
                         case 2:
-                            var resulPostgreSQL = StoreProcedureParametros.ParametrosPostgreSQL(ObtenerParametros(request), sp_consulta_lista_convocatorias, tipo: "SELECT * FROM");
-                            respuesta = await conexion.ConsultaDetalleMovimientosTomaNotaResponse.FromSqlRaw(resulPostgreSQL.Query, resulPostgreSQL.ListaParametros.ToArray()).ToListAsync();
+                            var resulPostgreSQL = StoreProcedureParametros.ParametrosPostgreSQL(ObtenerParametros(p_activos), sp_consulta_catalogo_movimientos_toma_nota, tipo: "SELECT * FROM");
+                            respuesta = await conexion.ConsultaCatalogoMovimientosTomaNotaResponse.FromSqlRaw(resulPostgreSQL.Query, resulPostgreSQL.ListaParametros.ToArray()).ToListAsync();
                             break;
                     }
                 }
 
-                return new ResponseGeneric<List<ConsultaDetalleMovimientosTomaNotaResponse>>(respuesta);
+                return new ResponseGeneric<List<ConsultaCatalogoMovimientosTomaNotaResponse>>(respuesta);
             }
             catch (Exception ex)
             {
-                LogErrores("ConsultaDetalleMovimientosTomaNotaAccesoDatos", ex);
+                LogErrores("ConsultaCatalogoMovimientosTomaNotaAccesoDatos", ex);
                 throw;
             }
         }

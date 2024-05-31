@@ -20,6 +20,7 @@ namespace Asuntos_Religiosos_Api.Controllers.Operaciones
     {
         #region Propiedades
         private readonly ConsultaDetalleMovimientosTomaNotaNegocio _negocio;
+        private readonly ConsultaCatalogoMovimientosTomaNotaNegocio _negocioCat;
         private Utilidades.Log4Net.LoggerManager log = new Utilidades.Log4Net.LoggerManager();
         #endregion
 
@@ -59,6 +60,36 @@ namespace Asuntos_Religiosos_Api.Controllers.Operaciones
             catch (Exception ex)
             {
                 log.LogError("ConsultaDetalleMovimientosTomaNotaController - Get", ex);
+                return BadRequest(new ResponseGeneric<string>("Error al realizar la acción, favor de revisar el log"));
+            }
+
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetCatalogo([FromQuery] bool p_activos)
+        {
+            try
+            {
+                var result = await _negocioCat.Consultar(p_activos);
+                if (result.Status == ResponseStatus.Success)
+                {
+                    if (result.Response.Count > 0)
+                    {
+                        return Ok(result);
+                    }
+                    else
+                    {
+                        return NoContent();
+                    }
+                }
+                else
+                {
+                    return NoContent();
+                }
+            }
+            catch (Exception ex)
+            {
+                log.LogError("ConsultaCatalogoMovimientosTomaNotaController - Get", ex);
                 return BadRequest(new ResponseGeneric<string>("Error al realizar la acción, favor de revisar el log"));
             }
 

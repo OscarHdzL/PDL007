@@ -90,7 +90,7 @@
             {{tipo.s_movimiento}}
           </label>
           <div class="col-md-3">
-            <input class="" type="checkbox" checked="checked" readonly name="checkMovimiento[]" [disabled]="true"/>
+            <input class="" type="checkbox" [(ngModel)]="tipo.s_activo" readonly name="checkMovimiento[]" [disabled]="true"/>
           </div>
         </div>
       </div>

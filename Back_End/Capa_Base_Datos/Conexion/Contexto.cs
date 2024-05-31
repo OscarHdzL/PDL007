@@ -100,6 +100,7 @@ namespace Conexion
         public DbSet<ConteoTomaNotaResponse> ConteoTomaNotaResponse { get; set; }
         public DbSet<AsignarDictaminadorTomaNotaResponse> AsignarDictaminadorTomaNotaResponse { get; set; }
         public DbSet<ConsultaDetalleMovimientosTomaNotaResponse> ConsultaDetalleMovimientosTomaNotaResponse { get; set; }
+        public DbSet<ConsultaCatalogoMovimientosTomaNotaResponse> ConsultaCatalogoMovimientosTomaNotaResponse { get; set; }
         public DbSet<ConsultaPermisoPersonaResponse> ConsultaPermisoPersonaResponse { get; set; }
         public DbSet<ConsultaDetalleTomaNotaInfoResponse> ConsultaDetalleTomaNotaInfoResponse { get; set; }
         public DbSet<ConsultaHorariosBloqueoResponse> ConsultaHorariosBloqueoResponse { get; set; }
@@ -266,6 +267,7 @@ namespace Conexion
             modelBuilder.Entity<ConteoTomaNotaResponse>().HasNoKey();
             modelBuilder.Entity<AsignarDictaminadorTomaNotaResponse>().HasNoKey();
             modelBuilder.Entity<ConsultaDetalleMovimientosTomaNotaResponse>().HasNoKey();
+            modelBuilder.Entity<ConsultaCatalogoMovimientosTomaNotaResponse>().HasNoKey();
             modelBuilder.Entity<ConsultaPermisoPersonaResponse>().HasNoKey();
             modelBuilder.Entity<ConsultaDetalleTomaNotaInfoResponse>().HasNoKey();
             modelBuilder.Entity<ConsultaHorariosBloqueoResponse>().HasNoKey();

@@ -634,20 +634,21 @@ export class ModuloAtencionTomaNotaComponent implements OnInit{
             this.routes.push({ id: 1, text: 'Inicio', active: true });
             var text = "";
             var index = 2;
-            for (var i = 0; i < this.listaMovimientos.length; i++) {
-              if (this.listaMovimientos[i].s_cat_mov == 1) {
+            var listaMovimientosFilter = this.listaMovimientos.filter(x => x.s_activo == true);
+            for (var i = 0; i < listaMovimientosFilter.length; i++) {
+              if (listaMovimientosFilter[i].s_cat_mov == 1) {
                 text = "Estatutos";
-              } else if (this.listaMovimientos[i].s_cat_mov == 2) {
+              } else if (listaMovimientosFilter[i].s_cat_mov == 2) {
                 text = "Denominacion";
-              } else if (this.listaMovimientos[i].s_cat_mov == 3) {
+              } else if (listaMovimientosFilter[i].s_cat_mov == 3) {
                 text = "Miembros";
-              } else if (this.listaMovimientos[i].s_cat_mov == 4) {
+              } else if (listaMovimientosFilter[i].s_cat_mov == 4) {
                 text = "Representante";
-              } else if (this.listaMovimientos[i].s_cat_mov == 5) {
+              } else if (listaMovimientosFilter[i].s_cat_mov == 5) {
                 text = "Apoderado";
-              } else if (this.listaMovimientos[i].s_cat_mov == 6) {
+              } else if (listaMovimientosFilter[i].s_cat_mov == 6) {
                 text = "DomicilioLegal";
-              } else if (this.listaMovimientos[i].s_cat_mov == 7) {
+              } else if (listaMovimientosFilter[i].s_cat_mov == 7) {
                 text = "DomicilioNotificacion";
               }
 
