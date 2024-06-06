@@ -21,7 +21,7 @@ export class NavMenuComponent implements OnInit {
   public ListModulos: Array<CatalogoRutas> = [];
   listaEncabezados: any[];
 
-  public banner:string;
+  public banner: string;
 
   constructor(
     private auth: AuthGuard,
@@ -32,8 +32,7 @@ export class NavMenuComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.ListModulos =
-    this.localStorageService.getJsonValue("ListaMenuAgrupado");
+    this.ListModulos = this.localStorageService.getJsonValue("ListaMenuAgrupado");
     this.isAuth = this.auth.canActivate();
     this.authService.estatusActualDelUsuarioEnSesion$().subscribe((isAuth) => {
       this.isAuth = isAuth;
@@ -42,10 +41,10 @@ export class NavMenuComponent implements OnInit {
     this.authService.refrescarMenuPermisos$().subscribe((modules) => {
       this.ListModulos = modules;
 
-      this.banner =AuthIdentity.GetBannerSession();
+      this.banner = AuthIdentity.GetBannerSession();
     });
     this.setupidleSession();
-    this.banner =AuthIdentity.GetBannerSession();
+    this.banner = AuthIdentity.GetBannerSession();
   }
 
   collapse() {
@@ -58,14 +57,12 @@ export class NavMenuComponent implements OnInit {
 
   //#region Métodos publicos
   public cerrarSesion(): void {
+    this.isAuth = false;
     this.auth.logOut();
     this.authService.EsEstaAutenticado(false);
     this.localStorageService.clearToken();
-
+    this.router.navigate(["/iniciar-sesion"]);
     this.banner = "";
-
-    //this.router.navigate(["/iniciar-sesion"]);
-    window.location.reload();
   }
   //#endregion
 
@@ -75,7 +72,7 @@ export class NavMenuComponent implements OnInit {
       this.userIdle.stopWatching();
       this.userIdle.setConfigValues({ idle: 300, timeout: 1 });
       this.userIdle.startWatching();
-      this.userIdle.onTimerStart().subscribe(count => {});
+      this.userIdle.onTimerStart().subscribe((count) => {});
       this.userIdle.onTimeout().subscribe(() => this.accionPorinactividad());
     }
   }

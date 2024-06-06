@@ -72,13 +72,15 @@ import { ModuloComentariosComponent } from "./@Operaciones/modulo-declaratoria-p
 import { ModuloNuevoReporteComponent } from "./@Operaciones/modulo-declaratoria-procedencia/modulo-reporte/modulo-reporte.component";
 import { ModuloAdminPlantillasComponent } from "./@Operaciones/modulo-declaratoria-procedencia/modulo-administracion-plantillas/modulo-administracion-plantillas.component";
 import { RefactorModuloTramitesComponent } from "./@Operaciones/refactor-modulo-tramites/refactor-modulo-tramites.component";
+import { SesionActiveGuard } from "./guards/SesionActive.guard";
 
 
 
 const routes: Routes = [
   {
     path: "",
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "iniciar-sesion",
@@ -111,267 +113,331 @@ const routes: Routes = [
   {
     path: "catalogos/situacion-juridica",
     component: ModuloListCatalogosJuridicaComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "catalogos/aviso-apertura",
     component: ModuloListCatalogosAvisoAperturaComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "catalogos/constancia-notario",
     component: ModuloListConstanciaNotarioComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "catalogos/colonias",
     component: ModuloListColoniaComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "catalogos/credo",
     component: ModuloListCatalogoCredoComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "catalogos/director",
     component: ModuloListCatalogoDirectorComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "catalogos/emisora",
     component: ModuloListCatalogoEmisoraComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "catalogos/paisorigen",
     component: ModuloListCatalogoPaisoComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "catalogos/plantilla",
-    component: ModuloGestionCatalogoPlantillaTransmisionComponent
+    component: ModuloGestionCatalogoPlantillaTransmisionComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "tramites",
     component: ModuloTramiteComponent,
+    canActivate: [SesionActiveGuard]
   },
   { path: "solicitudregistro", redirectTo: "solicitudregistro/", pathMatch: "full" },
   {
     path: "solicitudregistro/:Id",
     component: ModuloSolicitudPrimerPasoComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "solicitudescrito/domiciliolegal/:Id",
     component: ModuloSolicitudSegundoPasoComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "solicitudescrito/relacioninmueble/:Id",
     component: ModuloSolicitudTercerPasoComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "solicitudescrito/especificacionesterreno/:Id",
     component: ModuloSolicitudCuartoPasoComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "solicitudescrito/representantes/:Id",
     component: ModuloSolicitudQuintoPasoComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "solicitudescrito/constancianotario/:Id",
     component: ModuloSolicitudSextoPasoComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "tomanota",
     component: ModuloTramiteTomaNotaComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "solicitudtomanota/:Id",
     component: ModuloSolicitudTomaNotaComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "solicitudtomanotaconsulta/:Id",
     component: ModuloSolicitudTomaNotaComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "movimientos-estatutos",
     component: ModuloSolicitudMovimientosEstatutosComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "movimientos-denominacion",
     component: ModuloSolicitudMovimientosDenominacionComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "movimientos-miembros",
     component: ModuloSolicitudMovimientosRelacionMiembrosComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "movimientos-representante",
     component: ModuloSolicitudRepresentanteLegalComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "movimientos-apoderado",
     component: ModuloSolicitudApoderadoLegalComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "movimientos-domicilio-legal",
     component: ModuloSolicitudDomicilioLegalComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "movimientos-domicilio-notificacion",
     component: ModuloSolicitudDomicilioNotificacionComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "usuario-sistema",
     component: ModuloUsuarioSistemaComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "atencion/registro",
     component: ModuloAtenderRegistrosComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "asignacion/registro-asociacion",
     component: ModuloAsignacionRegistroComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "asignacion/toma-nota",
     component: ModuloAsignacionTomaNotaComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "usuario-sistema/nuevo-usuario",
     component: ModuloUsuarioSistemaPerfilRegistroComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "atencion/validardocumentacion/:Id",
     component: ModuloCotejoDocumentacionComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "atencion/validardocumentacionfisica/:Id",
     component: ModuloCotejoDocumentacionFisicaComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "atencion/finalizacion-cotejo/:Id",
     component: ModuloFinalizacionCotejoComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "atencion/registro-concluido/:Id",
     component: ModuloCotejoConcluidoComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "usuario-sistema/editar-usuario-sistema/:id",
     component: ModuloUsuarioSistemaPerfilActualizaComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "consulta-registro",
     component: ModuloConsultaTramiteComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "consulta-registro-tramite/:Id",
     component: ModuloConsultaTramiteComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "reporte-registro",
     component: ModuloReporteRegistroComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "reporte-toma-nota",
     component: ModuloReporteRegistroComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "reporte-transmisiones",
     component: ModuloReporteTransmisionesComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "atencion/toma-nota",
     component: ModuloAtenderTomaNotaComponent,
+    canActivate: [SesionActiveGuard]
     // canActivate: [AuthGuard]
   },
   {
     path: "atencion/toma-nota/:id",
-    component: ModuloAtencionTomaNotaComponent
+    component: ModuloAtencionTomaNotaComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "consulta-toma-nota/:Id",
-    component: ModuloConsultaTomaNotaComponent
+    component: ModuloConsultaTomaNotaComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "transmisiones",
     component: ModuloTransmisionesComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "consulta-transmision-Id/:Id",
     component: ModuloConsultaTransmisionPublicoComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "solicitud-transmision",
-    component: ModuloSolicitudTransmisionComponent
+    component: ModuloSolicitudTransmisionComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "solicitud-transmision/:transmision",
-    component: ModuloSolicitudTransmisionComponent
+    component: ModuloSolicitudTransmisionComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "asignacion-transmision",
-    component: ModuloAsignacionTransmisionesComponent
+    component: ModuloAsignacionTransmisionesComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "atencion-transmision",
-    component: ModuloAtencionTransmisionesComponent
+    component: ModuloAtencionTransmisionesComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "registros-tramite",
-    component: ModuloRegistrosTramiteComponent
+    component: ModuloRegistrosTramiteComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "registros-toma-nota",
-    component: ModuloRegistrosTomaNotaComponent
+    component: ModuloRegistrosTomaNotaComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "registros-transmision",
-    component: ModuloRegistrosTransmisionComponent
+    component: ModuloRegistrosTransmisionComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "registros-tramite-dictaminador",
-    component: ModuloRegistrosTramiteDictaminadorComponent
-
+    component: ModuloRegistrosTramiteDictaminadorComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "registros-tnota-dictaminador",
-    component: ModuloRegistrosTomaNotaDictaminadorComponent
+    component: ModuloRegistrosTomaNotaDictaminadorComponent,
+    canActivate: [SesionActiveGuard]
 
   },
   {
     path: "registros-transmision-dictaminador",
-    component: ModuloRegistrosTransmisionDictaminadorComponent
+    component: ModuloRegistrosTransmisionDictaminadorComponent,
+    canActivate: [SesionActiveGuard]
 
   },
   {
     path: "consulta-transmision/:transmision",
-    component: ModuloConsultaTransmisionComponent
+    component: ModuloConsultaTransmisionComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "declaratoria-procedencia",
-    component: ModuloDeclaratoriaProcedenciaComponent
+    component: ModuloDeclaratoriaProcedenciaComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "alta-declaratoria",
-    component: ModuloFormularioRegistroComponent
+    component: ModuloFormularioRegistroComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "alta-declaratoria/:declaratoria",
-    component: ModuloFormularioRegistroComponent
+    component: ModuloFormularioRegistroComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "vista-principal-declaratoria",
-    component: ModuloVistaPrincipalComponent
+    component: ModuloVistaPrincipalComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "comentarios",
-    component: ModuloComentariosComponent
+    component: ModuloComentariosComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "reportes",
-    component: ModuloNuevoReporteComponent
+    component: ModuloNuevoReporteComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "admin-plantillas",
-    component: ModuloAdminPlantillasComponent
+    component: ModuloAdminPlantillasComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "alta-solicitud-registro",
-    component: RefactorModuloTramitesComponent
+    component: RefactorModuloTramitesComponent,
+    canActivate: [SesionActiveGuard]
   },
   {
     path: "",
