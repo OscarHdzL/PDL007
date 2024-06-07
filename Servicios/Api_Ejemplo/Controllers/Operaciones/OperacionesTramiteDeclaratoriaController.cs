@@ -17,6 +17,7 @@ using Modelos.Modelos.Utilidades;
 using Utilidades.EnvioCorreoElectronico;
 using Utilidades.GestionCreacionDocumentos.Implementar.FabricaDocumento;
 using Utilidades.GestionCreacionDocumentos.POCOs.Documentos;
+using System.Globalization;
 
 namespace Asuntos_Religiosos_Api.Controllers.Operaciones
 {
@@ -33,6 +34,7 @@ namespace Asuntos_Religiosos_Api.Controllers.Operaciones
         private readonly IConfiguration _configuration;
         private Utilidades.Log4Net.LoggerManager log = new Utilidades.Log4Net.LoggerManager();
         private readonly ActualizarTramitePasoSextoNegocio _negocioGeneral;
+        private readonly ConsultaArchivoNegocio _negocioArchivo;
 
         #endregion
 
@@ -42,7 +44,7 @@ namespace Asuntos_Religiosos_Api.Controllers.Operaciones
             _negocio = new OperacionesTramiteDeclaratoriaNegocio();
             _configuration = configuration;
             _negocioGeneral = new ActualizarTramitePasoSextoNegocio();
-
+            _negocioArchivo = new ConsultaArchivoNegocio();
         }
         #endregion
 
@@ -301,6 +303,55 @@ namespace Asuntos_Religiosos_Api.Controllers.Operaciones
                 {
                     var usuario = await _negocio.Consulta(new ConsultaDetalleUsuarioSistemaRequest
                         { id_usuario = resultado.Response[0].id_generico });
+
+                    if (usuario.Response.Any())
+                    {
+                        var resultArchivo = await _negocioArchivo.ConsultarRuta(request.p_id_declaratoria, 34);
+
+                        var currentUser = usuario.Response[0];
+                        string nombreUsuario = currentUser.nombre;
+                        string appUsuario = currentUser.apellido_paterno;
+                        string apmUsuario = currentUser.apellido_materno;
+                        EmailAddress FromemailAddress = new EmailAddress
+                        {
+                            Name = $"SEGOB",
+                            Address = "noreply@segob.com.mx"
+                        };
+                        EmailAddress ToemailAddress = new EmailAddress
+                        {
+                            Name = $"{nombreUsuario} {appUsuario} {apmUsuario}",
+                            Address = currentUser.usuario
+                        };
+
+                        string[] arrayFecha = request.p_fecha.Split("-");
+                        string fecha = request.p_fecha;
+
+                        if (fecha.Length > 0 ) {
+                            fecha = arrayFecha[2] + "/" + arrayFecha[1] + "/" + arrayFecha[0];
+                        } 
+                        
+                        EmailMessage emailMessage = new EmailMessage();
+                        String bodyCorreo =
+                           "<HTML style='padding:20px;'><head><style>a:hover{ background-color: #828282!important; }</style></head>" +
+                           "<h1> Estimado(a):  " + ToemailAddress.Name + "</h1><br>" +
+                           "<div>Le informamos que su solicitud de trámite de Declaratoria de Procedencia ha sido Autorizada. Adjunto encontrará el oficio de autorización de la Declaratoria de Procedencia." +
+                           "<br><br>" +
+                           " Favor de acudir para la entrega de este oficio debidamente llenado y firmado en la siguiente fecha, horario y dirección:" +
+                           "<br><br><br>" +
+                           "<strong>Fecha:</strong> " + fecha + "<br><br>" +
+                           "<strong>Horario</strong> " + request.p_horario + "<br><br>" +
+                           "<strong>Dirección:</strong> " + request.p_direccion + "<br><br>" +
+                           "</div><br>" +
+                           "</HTML>";
+                        emailMessage.ToAddresses.Add(ToemailAddress);
+                        emailMessage.FromAddresses.Add(FromemailAddress);
+                        emailMessage.Body = bodyCorreo;
+                        emailMessage.Subject = "Registro Trámite - Dirección General de Asuntos Religiosos";
+
+                        EnvioCorreoSMTP envioCorreo = new EnvioCorreoSMTP();
+                        envioCorreo.SendAttachment(currentUser.usuario, emailMessage.Subject, bodyCorreo, _configuration["Correo:email"], _configuration["Correo:contrasena"], _configuration["Correo:smtp"], _configuration["Correo:puerto"], _configuration["Correo:usuario"], resultArchivo.Response[0].ruta);
+
+                    }
 
                     return Ok(resultado);
                 }

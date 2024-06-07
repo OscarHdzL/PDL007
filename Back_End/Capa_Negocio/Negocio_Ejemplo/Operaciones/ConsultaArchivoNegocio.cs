@@ -59,7 +59,30 @@ namespace Negocio.Operaciones
                 throw;
             }
         }
-        
+
+        public async Task<ResponseGeneric<List<ArchivoResponse>>> ConsultarRuta(long id, int idArchivoTramite)
+        {
+            try
+            {
+                var respuesta = await _AccesoDatos.Consultar(id, idArchivoTramite);
+                foreach (var archivo in respuesta.Response)
+                {
+                    // Decodificamos la ruta del archivo
+                    CifradoMd5 cifradoMd5 = new CifradoMd5();
+                    string fileName = cifradoMd5.descifrar(archivo.ruta);
+                    archivo.ext = fileName.Split('.')[1];
+                    archivo.ruta = fileName;
+                }
+
+                return respuesta;
+            }
+            catch (Exception ex)
+            {
+                LogErrores("ConsultaArchivoNegocio - Consultar", ex);
+                throw;
+            }
+        }
+
         public async Task<ResponseGeneric<List<PlantillaBaseResponse>>> GetPlantilla(int p_id_archivo)
         {
             try

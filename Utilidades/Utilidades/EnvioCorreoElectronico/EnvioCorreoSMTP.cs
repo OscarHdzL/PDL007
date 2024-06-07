@@ -3,7 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
-
+using System.Net.Mime;
 
 namespace Utilidades.EnvioCorreoElectronico
 {
@@ -89,6 +89,46 @@ namespace Utilidades.EnvioCorreoElectronico
             mailMessage.IsBodyHtml = true;
             mailMessage.Body = body;
             mailMessage.Priority = MailPriority.Normal;
+
+            SmtpClient client = new SmtpClient
+            {
+                Host = smtp,
+                Port = Int32.Parse(puerto),
+                EnableSsl = false,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = credentials
+            };
+            try
+            {
+                client.Send(mailMessage);
+                respuesta = "Correcto";
+            }
+            catch (Exception ex)
+            {
+                log.LogError("No se pudo envíar el correo", ex);
+                respuesta = "Error";
+            }
+            return respuesta;
+        }
+
+        public string SendAttachment(String destinatario, String subject, String body, string emailto, string emailpassword, string smtp, string puerto, string usuario, string file)
+        {
+
+            List<String> to = new List<String>();
+            to.Add(destinatario);
+
+            Attachment fileAttachment = new Attachment(file, MediaTypeNames.Application.Octet);
+
+            NetworkCredential credentials = new NetworkCredential(emailto, emailpassword);
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.From = new MailAddress(emailto, credentials.UserName);
+            if (to != null) foreach (String addr in to) mailMessage.To.Add(new MailAddress(addr, "Test"));
+            mailMessage.Subject = subject;
+            mailMessage.IsBodyHtml = true;
+            mailMessage.Body = body;
+            mailMessage.Priority = MailPriority.Normal;
+            mailMessage.Attachments.Add(fileAttachment);
 
             SmtpClient client = new SmtpClient
             {
