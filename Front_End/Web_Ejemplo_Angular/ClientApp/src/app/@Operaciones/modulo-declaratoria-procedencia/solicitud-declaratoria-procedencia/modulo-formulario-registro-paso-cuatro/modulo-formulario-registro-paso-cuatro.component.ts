@@ -241,7 +241,7 @@ export class ModuloFormularioRegistroPasoCuatroComponent extends GeneralComponen
   }
 
   public async salir() {
-    if (this.idPerfil == 11) {
+    if (this.idPerfil == 11 || this.idPerfil == 12) {
       this.tabsService.salirModal("vista-principal-declaratoria")
     } else {
       this.tabsService.salirModal("declaratoria-procedencia")

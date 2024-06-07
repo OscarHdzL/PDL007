@@ -203,6 +203,11 @@ export class ModuloVistaPrincipalComponent extends GeneralComponent implements O
     }
 
     async mandarComentarios(item: any) {
+        console.log('item',item)
+        if(item.id_estatus !=42)
+            {
+                localStorage.setItem("modoLectura", "1");
+            }
         let objeto = {
             "p_id_declaratoria": item.id_declaratoria
         };
