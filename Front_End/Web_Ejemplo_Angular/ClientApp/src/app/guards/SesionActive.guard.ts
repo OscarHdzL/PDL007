@@ -18,7 +18,7 @@ export class SesionActiveGuard {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Promise<Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree> {
     const token = localStorage.getItem("jwt");
-    if (token && !this.jwtHelper.isTokenExpired(token, 300)) {
+    if (token && !this.jwtHelper.isTokenExpired(token, 3600)) {
       return true;
     }
     return this.router.parseUrl('/iniciar-sesion');

@@ -70,8 +70,8 @@ export class TabService {
         ariaLabelledBy: "modal-basic-title",
       }
     );
-    this.modalrefAdvertencia.componentInstance.mensajeTitulo = "Salir de solicitud de declariatoria";
-    this.modalrefAdvertencia.componentInstance.mensaje = "¿Está seguro de que desea salir del trámite solicitud de declariatoria?";
+    this.modalrefAdvertencia.componentInstance.mensajeTitulo = "Salir de solicitud de declaratoria";
+    this.modalrefAdvertencia.componentInstance.mensaje = "¿Está seguro de que desea salir del trámite solicitud de declaratoria?";
     this.modalrefAdvertencia.result.then((result) => {
       if (result) instance.router.navigate([ruta]);
     });

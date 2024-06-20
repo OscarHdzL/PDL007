@@ -70,7 +70,7 @@ export class NavMenuComponent implements OnInit {
     //configuración para el tiempo de inactividad  // 600 10 minutos - 1800 30 min
     if (this.isAuth) {
       this.userIdle.stopWatching();
-      this.userIdle.setConfigValues({ idle: 300, timeout: 1 });
+      this.userIdle.setConfigValues({ idle: 3600, timeout: 1 });
       this.userIdle.startWatching();
       this.userIdle.onTimerStart().subscribe((count) => {});
       this.userIdle.onTimeout().subscribe(() => this.accionPorinactividad());
